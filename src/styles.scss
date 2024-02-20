@@ -1,4 +1,41 @@
 @import 'theme.scss';
+@import 'scrollbar.scss';
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.main-container {
+    //background-color: blueviolet; // for debugging
+    max-width: 900px;
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 20px;
+    max-height: calc(100vh - 64px); // this is hacky: height of toolbar is 64px
+}
+
+.flex-container {
+    display: flex;
+    justify-content: center;
+}
+
+.flex-item-golden-ratio {
+    //background-color: darkgoldenrod;
+    flex: 1.618 1 auto;
+
+}
+
+.flex-item-1 {
+    //background-color: darkblue;
+    flex: 1 1 auto;
+}
+
+.overflow-scroll {
+    overflow-y: scroll;
+}

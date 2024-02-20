@@ -1,0 +1,19 @@
+@use '@angular/material' as mat;
+@import '../../../theme.scss';
+
+.highlight {
+    background-color: mat.get-theme-color($theme, primary, 800);
+    color: white;
+}
+
+.add-button-container {
+    // center the add button
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    // some extra space to prevent the shadow from being cut off
+    padding: 0; // prevent left/right cutoff
+    height: 80px !important; // prevent bottom cutoff
+}

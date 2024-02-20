@@ -1,1 +1,22 @@
-<p>routines works!</p>
+<div class="main-container flex-container">
+    <div class="flex-item-1 overflow-scroll">
+        <mat-list *ngFor="let routine of routines; let last = last">
+            <mat-list-item class="flex-container">
+                <div class="flex-container flex-item-1">
+                    <button mat-button class="flex-item-1" (click)="selectRoutine(routine)"
+                        [class.highlight]="routine===selectedRoutine">{{routine}}</button>
+                </div>
+            </mat-list-item>
+            <mat-list-item *ngIf="last" class="add-button-container">
+                <div class="add-button-container">
+                    <button mat-mini-fab><mat-icon>add</mat-icon></button>
+                </div>
+            </mat-list-item>
+        </mat-list>
+    </div>
+    <div class="flex-item-golden-ratio overflow-scroll">
+        <mat-list *ngFor="let dummy of dummies">
+            <mat-list-item>dummy</mat-list-item>
+        </mat-list>
+    </div>
+</div>

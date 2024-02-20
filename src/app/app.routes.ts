@@ -6,6 +6,7 @@ import { ProgressComponent } from './pages/progress/progress.component';
 import { GoalsComponent } from './pages/goals/goals.component';
 
 export const routes: Routes = [
+    { path: '', redirectTo: 'timer', pathMatch: 'full' },
     { path: 'timer', component: TimerComponent },
     { path: 'routines', component: RoutinesComponent },
     { path: 'timeline', component: TimelineComponent },

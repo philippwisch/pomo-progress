@@ -12,5 +12,5 @@ import {ToolbarComponent} from './components/toolbar/toolbar.component';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'pomo-progress';
+
 }

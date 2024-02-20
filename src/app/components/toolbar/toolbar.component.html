@@ -1,7 +1,9 @@
 <mat-toolbar color="primary">
-    <a routerLink="/timer" ><button mat-button >Timer</button></a>
-    <a routerLink="/routines" ><button mat-button >Routines</button></a>
-    <a routerLink="/timeline" ><button mat-button >Timeline</button></a>
-    <a routerLink="/progress" ><button mat-button >Progress</button></a>
-    <a routerLink="/goals" ><button mat-button >Goals</button></a>
+    <div>
+        <a routerLink="/timer" routerLinkActive="active-button"><button mat-flat-button color="primary">Timer</button></a>
+        <a routerLink="/routines" routerLinkActive="active-button"><button mat-flat-button color="primary">Routines</button></a>
+        <a routerLink="/timeline" routerLinkActive="active-button"><button mat-flat-button color="primary">Timeline</button></a>
+        <a routerLink="/progress" routerLinkActive="active-button"><button mat-flat-button color="primary">Progress</button></a>
+        <a routerLink="/goals" routerLinkActive="active-button"><button mat-flat-button color="primary">Goals</button></a>
+    </div>
 </mat-toolbar>
