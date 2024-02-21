@@ -12,11 +12,10 @@ body {
 }
 
 .main-container {
-    //background-color: blueviolet; // for debugging
     max-width: 900px;
     box-sizing: border-box;
     margin: 0 auto;
-    padding: 20px;
+    padding: 10px;
     max-height: calc(100vh - 64px); // this is hacky: height of toolbar is 64px
 }
 
@@ -25,17 +24,21 @@ body {
     justify-content: center;
 }
 
-.flex-item-golden-ratio {
-    //background-color: darkgoldenrod;
-    flex: 1.618 1 auto;
-
-}
-
-.flex-item-1 {
-    //background-color: darkblue;
+.flex-item-1-1 {
     flex: 1 1 auto;
 }
 
 .overflow-scroll {
     overflow-y: scroll;
+}
+
+// overwrites mat-buttons fixed height and no-wrap properties.
+// angular material library uses fixed-size for button height
+// which is very restrictive. E.g. if you change font size to over 36px (mat button height)
+// the text will actually overflow from the button
+.multiline-button {
+    white-space: pre-wrap !important;
+    word-wrap: break-word !important;
+    height: fit-content !important;
+    padding: 8.5px !important;
 }

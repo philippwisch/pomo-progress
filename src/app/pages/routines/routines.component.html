@@ -1,22 +1,49 @@
 <div class="main-container flex-container">
-    <div class="flex-item-1 overflow-scroll">
-        <mat-list *ngFor="let routine of routines; let last = last">
-            <mat-list-item class="flex-container">
-                <div class="flex-container flex-item-1">
-                    <button mat-button class="flex-item-1" (click)="selectRoutine(routine)"
-                        [class.highlight]="routine===selectedRoutine">{{routine}}</button>
-                </div>
-            </mat-list-item>
-            <mat-list-item *ngIf="last" class="add-button-container">
+
+    <!-- routines-->
+    <div class="left-menu overflow-scroll">
+        <mat-list>
+
+            <ng-container *ngFor="let routine of routines;">
+                <mat-list-item class="flex-container">
+                    <div class="flex-container flex-item-1-1" style="flex-wrap: wrap;">
+                        <button mat-button class="multiline-button flex-item-1-1" (click)="selectRoutine(routine)"
+                            [class.highlight]="routine===selectedRoutine">
+                            {{routine.name}}</button>
+                    </div>
+                </mat-list-item>
+            </ng-container>
+
+            <mat-list-item class="add-button-container">
                 <div class="add-button-container">
-                    <button mat-mini-fab><mat-icon>add</mat-icon></button>
+                    <button mat-mini-fab (click)="addRoutine()"><mat-icon>add</mat-icon></button>
                 </div>
             </mat-list-item>
+
         </mat-list>
     </div>
-    <div class="flex-item-golden-ratio overflow-scroll">
-        <mat-list *ngFor="let dummy of dummies">
-            <mat-list-item>dummy</mat-list-item>
+
+
+    <!-- tasks -->
+    <div class="flex-item-1-1 overflow-scroll">
+        <mat-list>
+
+            <ng-container *ngIf="selectedRoutine">
+                <ng-container *ngFor="let task of selectedRoutine.tasks;">
+                    <div>
+                        <mat-list-item>Placeholder: name of task is {{task.name }}</mat-list-item>
+                    </div>
+                </ng-container>
+            </ng-container>
+
+            <mat-list-item class="add-button-container">
+                <div class="add-button-container">
+                    <button mat-mini-fab [disabled]="!selectedRoutine"
+                        (click)="addTask()"><mat-icon>add</mat-icon></button>
+                </div>
+            </mat-list-item>
+
         </mat-list>
     </div>
+
 </div>

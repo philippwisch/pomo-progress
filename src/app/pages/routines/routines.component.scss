@@ -7,13 +7,24 @@
 }
 
 .add-button-container {
-    // center the add button
     display: flex;
     flex-direction: row;
-    align-items: center;
+    // horizontally centered
     justify-content: center;
+    // veritcally put it at the top
+    align-items: flex-start;
+    padding-top: 10px;
+    // prevent bottom cutoff for the button's shadow
+    height: 80px !important;
+}
 
-    // some extra space to prevent the shadow from being cut off
-    padding: 0; // prevent left/right cutoff
-    height: 80px !important; // prevent bottom cutoff
+.left-menu {
+    width: 200px;
+}
+
+// some changes to the layout of mat-list
+mat-list-item {
+    min-height: 0px !important;
+    height: fit-content !important;
+    padding: 2px 4px !important;
 }

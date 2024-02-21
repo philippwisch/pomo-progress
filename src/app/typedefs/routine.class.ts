@@ -2,9 +2,9 @@ import { Task } from "./task.class";
 
 export class Routine {
     name: string;
-    steps: Task[];
-    constructor(name: string, steps: Task[]) {
+    tasks: Task[];
+    constructor(name: string, tasks: Task[]) {
         this.name = name;
-        this.steps = steps;
+        this.tasks = tasks;
     }
 }
