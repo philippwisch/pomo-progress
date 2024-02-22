@@ -1,0 +1,38 @@
+@use '@angular/material' as mat;
+@import '../../../theme.scss';
+
+:host {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap:wrap;max-width: fit-content;
+    padding:2px;
+    background-color: mat.get-theme-color($theme, primary, default);
+    border-radius: 4px;
+}
+
+input[type="color"],
+input[type="number"] {
+    width: 48px;
+}
+
+input[type="text"] {
+    width: 148px;
+}
+
+input {
+    box-sizing: border-box;
+    border: 1px solid black;
+    margin: 1px;
+
+    height: 32px;
+
+    background-color: mat.get-theme-color($theme, background, dialog);
+    color: mat.get-theme-color($theme, foreground, text);
+}
+
+input:focus {
+    outline: none;
+    border-color: white;
+}

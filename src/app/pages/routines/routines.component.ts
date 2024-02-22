@@ -6,13 +6,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { Routine } from '../../typedefs/routine.class';
 import { RoutinesService } from '../../services/routines.service';
 import { Task } from '../../typedefs/task.class';
+import { TaskComponent } from "../../components/task/task.component";
+import { Time } from '../../typedefs/time.class';
 
 @Component({
   selector: 'app-routines',
   standalone: true,
-  imports: [CommonModule, MatListModule, MatButtonModule, MatIconModule],
   templateUrl: './routines.component.html',
-  styleUrl: './routines.component.scss'
+  styleUrl: './routines.component.scss',
+  imports: [CommonModule, MatListModule, MatButtonModule, MatIconModule, TaskComponent]
 })
 export class RoutinesComponent {
   routines: Routine[];
@@ -20,6 +22,9 @@ export class RoutinesComponent {
 
   constructor(private routineService: RoutinesService) {
     this.routines = this.routineService.routines;
+    if(this.routines.length > 0) {
+      this.selectedRoutine = this.routines[0];
+    }
   }
 
   selectRoutine(routine: any) {
@@ -28,13 +33,18 @@ export class RoutinesComponent {
   }
 
   addRoutine() {
-    this.routines.push(new Routine("New Routine", []));
-    this.selectedRoutine = this.routines[this.routines.length - 1];
+    let newRoutine = new Routine("New Routine", []);
+    this.routineService.addRoutine(newRoutine);
+    this.selectedRoutine = newRoutine;
+    // todo autofocus for editing the name
   }
 
   addTask() {
     if (!(this.selectedRoutine === null)) {
-      this.selectedRoutine.tasks.push(new Task("New Task", 5, "red"));
+
+      // todo -> pick random color
+      let newTask = new Task("", new Time(0, 10, 0), "red"); // default values for new task
+      this.routineService.addTask(this.selectedRoutine, newTask);
     }
   }
 }

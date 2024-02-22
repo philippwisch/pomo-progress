@@ -5,8 +5,8 @@
         <mat-list>
 
             <ng-container *ngFor="let routine of routines;">
-                <mat-list-item class="flex-container">
-                    <div class="flex-container flex-item-1-1" style="flex-wrap: wrap;">
+                <mat-list-item>
+                    <div class="flex-container">
                         <button mat-button class="multiline-button flex-item-1-1" (click)="selectRoutine(routine)"
                             [class.highlight]="routine===selectedRoutine">
                             {{routine.name}}</button>
@@ -31,7 +31,11 @@
             <ng-container *ngIf="selectedRoutine">
                 <ng-container *ngFor="let task of selectedRoutine.tasks;">
                     <div>
-                        <mat-list-item>Placeholder: name of task is {{task.name }}</mat-list-item>
+                        <mat-list-item>
+                            <div class="flex-center">
+                                <app-task class="flex-item-1-1" [routine]="selectedRoutine" [task]="task"></app-task>
+                            </div>
+                        </mat-list-item>
                     </div>
                 </ng-container>
             </ng-container>
@@ -45,5 +49,4 @@
 
         </mat-list>
     </div>
-
 </div>
