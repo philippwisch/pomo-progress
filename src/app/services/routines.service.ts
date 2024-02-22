@@ -13,7 +13,7 @@ export class RoutinesService {
 
   constructor() {
     // placeholders for now
-    this.routines.push(new Routine("Pomodoro", [new Task("Work", new Time(0, 25, 0), "red"), new Task("Rest", new Time(0, 5, 0), "green")]));
+    this.routines.push(new Routine("Pomodoro", [new Task("Work", new Time(0, 25, 0), "#ff0000"), new Task("Rest", new Time(0, 5, 0), "#00ff00")]));
   }
 
   addRoutine(routine: Routine) {
@@ -26,10 +26,10 @@ export class RoutinesService {
     routine.tasks.push(task);
   }
 
-  // replaces Task with new Task object
   updateTask(routine: Routine, oldTask: Task,
     { name = null, time = null, color = null }: { name?: string | null, time?: Time | null, color?: string | null }) {
     console.log("debug message -> updated task")
+    console.log(name, time, color)
     let task = routine.tasks[routine.tasks.indexOf(oldTask)];
 
     if (name !== null) {

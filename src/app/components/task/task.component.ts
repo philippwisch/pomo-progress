@@ -19,16 +19,20 @@ export class TaskComponent {
   @Input() routine!: Routine;
   @Input() task!: Task;
 
-  @ViewChild('name') name!: ElementRef;
+  constructor(private routineService: RoutinesService) {
+    
+  }
 
-  constructor(private routineService: RoutinesService) { }
+  ngAfterViewInit() {
+    console.log(this.task);
+  }
 
   private updateTask(param: { name?: string | null, time?: Time | null, color?: string | null }) {
     this.routineService.updateTask(this.routine, this.task, param);
   }
 
-  onNameChange() {
-    this.updateTask({ name: this.name.nativeElement.value });
+  onNameChange(input: HTMLInputElement) {
+    this.updateTask({ name: input.value });
   }
 
   onHourChange(input: HTMLInputElement) {
@@ -70,5 +74,9 @@ export class TaskComponent {
     result = result.toString().padStart(2, '0');
     input.value = result;
     return result;
+  }
+
+  onColorChange(input: HTMLInputElement) {
+    this.updateTask({ color: input.value });
   }
 }
