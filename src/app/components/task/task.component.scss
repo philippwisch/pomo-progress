@@ -7,9 +7,8 @@
     justify-content: space-around;
     align-items: center;
     flex-wrap:wrap;max-width: fit-content;
-    padding:2px;
+    padding:2px 32px;
     background-color: mat.get-theme-color($theme, primary, default);
-    border-radius: 4px;
 }
 
 input[type="color"],

@@ -22,7 +22,16 @@
     width: 200px;
 }
 
-// some changes to the layout of mat-list
+.task {
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
+}
+
+.task-container {
+    padding-bottom:16px;
+}
+
+// some changes to the default layout of mat-list
+// whoch only allows fixed-height items
 mat-list-item {
     min-height: 0px !important;
     height: fit-content !important;

@@ -32,8 +32,8 @@
                 <ng-container *ngFor="let task of selectedRoutine.tasks;">
                     <div>
                         <mat-list-item>
-                            <div class="flex-center">
-                                <app-task class="flex-item-1-1" [routine]="selectedRoutine" [task]="task"></app-task>
+                            <div class="flex-center task-container">
+                                <app-task class="flex-item-1-1 task" [routine]="selectedRoutine" [task]="task"></app-task>
                             </div>
                         </mat-list-item>
                     </div>
