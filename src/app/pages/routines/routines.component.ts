@@ -43,7 +43,7 @@ export class RoutinesComponent {
     if (!(this.selectedRoutine === null)) {
 
       // todo -> pick random color
-      let newTask = new Task("", new Time(0, 10, 0), "#ff0000"); // default values for new task
+      let newTask = new Task("", new Time(0, 5, 0), "#ff0000"); // default values for new task
       this.routineService.addTask(this.selectedRoutine, newTask);
     }
   }

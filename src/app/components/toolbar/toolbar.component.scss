@@ -9,6 +9,14 @@
     align-items: center;
 }
 
-.active-button>button {
+.active-link {
     background-color: mat.get-theme-color($theme, primary, 800);
+    font-weight: bold;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+    text-align: center;
+    padding: 8px;
 }
