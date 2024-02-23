@@ -17,18 +17,13 @@ import { Time } from '../../typedefs/time.class';
 export class TaskComponent {
   // REQUIRED INPUTS
   @Input() routine!: Routine;
+  @Input() index!: number;
   @Input() task!: Task;
 
-  constructor(private routineService: RoutinesService) {
-    
-  }
-
-  ngAfterViewInit() {
-    console.log(this.task);
-  }
+  constructor(private routineService: RoutinesService) { }
 
   private updateTask(param: { name?: string | null, time?: Time | null, color?: string | null }) {
-    this.routineService.updateTask(this.routine, this.task, param);
+    this.routineService.updateTask(this.routine, this.index, param);
   }
 
   onNameChange(input: HTMLInputElement) {

@@ -1,13 +1,11 @@
+@use '@angular/material' as mat;
 @import 'theme.scss';
 @import 'scrollbar.scss';
 
-html,
-body {
-    height: 100%;
-}
-
-body {
+html, body {
+    max-height: 100vh;
     margin: 0;
+    padding: 0;
 }
 
 input {
@@ -16,32 +14,6 @@ input {
 
 * {
     font-family: 'Courier New', Courier, monospace
-}
-
-.main-container {
-    max-width: 900px;
-    box-sizing: border-box;
-    margin: 0 auto;
-    padding: 10px;
-    max-height: calc(100vh - 64px); // this is hacky: height of toolbar is 64px
-}
-
-.flex-container {
-    display: flex;
-}
-
-.flex-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.flex-item-1-1 {
-    flex: 1 1 auto;
-}
-
-.overflow-scroll {
-    overflow-y: scroll;
 }
 
 // overwrites mat-buttons fixed height and no-wrap properties.
@@ -53,4 +25,52 @@ input {
     word-wrap: break-word !important;
     height: fit-content !important;
     padding: 8.5px !important;
+}
+
+.main-container {
+    box-sizing: border-box;
+    max-width: 900px;
+    height: calc(100vh - 84px); // 64px for toolbar, 10px * 2 for margins
+    margin: 10px auto;
+}
+
+// common styling classes
+
+.flex-container {
+    display: flex;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-end {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.flex-item-1-1 {
+    flex: 1 1 auto;
+}
+
+.flex-item-1-0 {
+    flex: 1 0 auto;
+}
+
+.overflow-scroll {
+    overflow-y: scroll;
+}
+
+.sharp-edges {
+    border-radius: 0 !important;
+}
+
+.highlight {
+    background-color: mat.get-theme-color($theme, primary, 800) !important;
+    // todo change static color to variable
+    color: white !important;
+    font-weight: bold !important;
 }

@@ -13,24 +13,27 @@ export class RoutinesService {
 
   constructor() {
     // placeholders for now
+
+    let longRoutine = new Routine("Degenerate Lifestyle", []);
+    for (let i = 0; i < 100; i++) {
+      longRoutine.tasks.push(new Task("Watch Anime", new Time(20, 0, 0), "#00ffff"));
+      longRoutine.tasks.push(new Task("Sleep", new Time(4, 0, 0), "#ff00ff"));
+    }
+    this.routines.push(longRoutine);
     this.routines.push(new Routine("Pomodoro", [new Task("Work", new Time(0, 25, 0), "#ff0000"), new Task("Rest", new Time(0, 5, 0), "#00ff00")]));
   }
 
   addRoutine(routine: Routine) {
-    console.log("debug message -> added routine")
     this.routines.push(routine);
   }
 
   addTask(routine: Routine, task: Task) {
-    console.log("debug message -> added task")
     routine.tasks.push(task);
   }
 
-  updateTask(routine: Routine, oldTask: Task,
+  updateTask(routine: Routine, index: number,
     { name = null, time = null, color = null }: { name?: string | null, time?: Time | null, color?: string | null }) {
-    console.log("debug message -> updated task")
-    console.log(name, time, color)
-    let task = routine.tasks[routine.tasks.indexOf(oldTask)];
+    let task = routine.tasks[index];
 
     if (name !== null) {
       task.name = name;
@@ -41,5 +44,13 @@ export class RoutinesService {
     if (color !== null) {
       task.color = color;
     }
+  }
+
+  deleteTask(routine: Routine, index: number) {
+    routine.tasks.splice(index, 1);
+  }
+
+  reorderTasks(routine: Routine, previousIndex: number, currentIndex: number): void {
+    routine.tasks.splice(currentIndex, 0, routine.tasks.splice(previousIndex, 1)[0]);
   }
 }

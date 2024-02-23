@@ -1,10 +1,10 @@
-<input #name type="text" placeholder="New Task" [value]="task.name" (keydown.enter)="name.blur()"
-    (keydown.escape)="name.blur()" (blur)="onNameChange(name)">
-<div>
-    <input #hours type="number" placeholder="hh" [value]="task.time.hours" (input)="onHourChange(hours)">
-    <input #minutes type="number" placeholder="mm" [value]="task.time.minutes" (input)="onMinuteChange(minutes)">
-    <input #seconds type="number" placeholder="ss" [value]="task.time.seconds" (input)="onSecondChange(seconds)">
-</div>
-<div>
-    <input #color type="color" [value]="task.color" (change)="onColorChange(color)">
-</div>
+    <input #name type="text" placeholder="New Task" [value]="task.name" (keydown.enter)="name.blur()"
+        (keydown.escape)="name.blur()" (blur)="onNameChange(name)">
+    <div>
+        <input #hours type="number" placeholder="hh" [value]="task.time.hours" (input)="onHourChange(hours)">
+        <input #minutes type="number" placeholder="mm" [value]="task.time.minutes" (input)="onMinuteChange(minutes)">
+        <input #seconds type="number" placeholder="ss" [value]="task.time.seconds" (input)="onSecondChange(seconds)">
+    </div>
+    <div>
+        <input #color type="color" [value]="task.color" (change)="onColorChange(color)">
+    </div>

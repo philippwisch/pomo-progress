@@ -7,8 +7,8 @@
             <ng-container *ngFor="let routine of routines;">
                 <mat-list-item>
                     <div class="flex-container">
-                        <button mat-button class="multiline-button flex-item-1-1" (click)="selectRoutine(routine)"
-                            [class.highlight]="routine===selectedRoutine">
+                        <button mat-button class="multiline-button sharp-edges flex-item-1-1"
+                            (click)="selectRoutine(routine)" [class.highlight]="routine===selectedRoutine">
                             {{routine.name}}</button>
                     </div>
                 </mat-list-item>
@@ -26,17 +26,28 @@
 
     <!-- tasks -->
     <div class="flex-item-1-1 overflow-scroll">
-        <mat-list>
+        <mat-list cdkDropList (cdkDropListDropped)="onTaskListDrop($event)">
 
             <ng-container *ngIf="selectedRoutine">
-                <ng-container *ngFor="let task of selectedRoutine.tasks;">
-                    <div>
-                        <mat-list-item>
-                            <div class="flex-center task-container">
-                                <app-task class="flex-item-1-1 task" [routine]="selectedRoutine" [task]="task"></app-task>
+                <ng-container *ngFor="let task of selectedRoutine.tasks; let index = index;">
+
+                    <mat-list-item cdkDrag>
+                        <div class="flex-center list-item-task-container">
+                            <div class="flex-item-1-1 margin-1">
+                                <div class="flex-center drag-handle" cdkDragHandle><mat-icon>drag_handle</mat-icon></div>
                             </div>
-                        </mat-list-item>
-                    </div>
+                            <app-task class="flex-item-1-0" [routine]="selectedRoutine" [index]="index" [task]="task"></app-task>
+                            <div class="flex-end flex-item-1-1">
+                                <button mat-mini-fab class=" margin-1"
+                                    (click)="duplicateTask(index)"><mat-icon>content_copy</mat-icon>
+                                </button>
+                                <button mat-mini-fab class=" margin-1"
+                                    (click)="deleteTask(index)"><mat-icon>close</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </mat-list-item>
+
                 </ng-container>
             </ng-container>
 

@@ -4,11 +4,8 @@
 :host {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    flex-wrap:wrap;max-width: fit-content;
-    padding:2px 32px;
-    background-color: mat.get-theme-color($theme, primary, default);
+    flex-wrap:wrap;
+    max-width: fit-content;
 }
 
 input[type="color"],
@@ -17,7 +14,7 @@ input[type="number"] {
 }
 
 input[type="text"] {
-    width: 148px;
+    width: 198px;
 }
 
 input {
@@ -25,7 +22,7 @@ input {
     border: 1px solid black;
     margin: 1px;
 
-    height: 32px;
+    height: 48px;
 
     background-color: mat.get-theme-color($theme, background, dialog);
     color: mat.get-theme-color($theme, foreground, text);
@@ -33,5 +30,5 @@ input {
 
 input:focus {
     outline: none;
-    border-color: white;
+    border-color: white; // todo change static color to variable
 }

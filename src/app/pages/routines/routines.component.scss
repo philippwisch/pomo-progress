@@ -1,12 +1,14 @@
 @use '@angular/material' as mat;
 @import '../../../theme.scss';
 
-.highlight {
-    background-color: mat.get-theme-color($theme, primary, 800);
-    color: white;
+.drag-handle {
+    width: 40px;
+    height: 40px;
+    background-color: mat.get-theme-color($theme, background, dialog);;
 }
 
 .add-button-container {
+    background-color: mat.get-theme-color($theme, background, background);
     display: flex;
     flex-direction: row;
     // horizontally centered
@@ -18,22 +20,49 @@
     height: 80px !important;
 }
 
+.list-item-task-container {
+    padding: 2px 4px;
+}
+
 .left-menu {
     width: 200px;
 }
 
-.task {
-    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
-}
-
-.task-container {
-    padding-bottom:16px;
+mat-list {
+    padding: 0 !important;
 }
 
 // some changes to the default layout of mat-list
-// whoch only allows fixed-height items
+// which only allows fixed-height items
 mat-list-item {
+    background-color: mat.get-theme-color($theme, background, background);
     min-height: 0px !important;
     height: fit-content !important;
-    padding: 2px 4px !important;
+    padding: 0 !important;
+
+}
+
+mat-list-item:not(:last-child) {
+    border-bottom: 1px solid black;
+}
+
+
+mat-list-item:nth-child(odd):not(:last-child) {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.cdk-drag-placeholder {
+    opacity: 0;
+}
+
+.cdk-drag-animating {
+    transition: transform 50ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.cdk-drag-preview {
+    background-color: mat.get-theme-color($theme, primary, A200) !important;
+    box-sizing: border-box;
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+        0 8px 10px 1px rgba(0, 0, 0, 0.14),
+        0 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
