@@ -18,17 +18,5 @@ input[type="text"] {
 }
 
 input {
-    box-sizing: border-box;
-    border: 1px solid black;
-    margin: 1px;
-
     height: 48px;
-
-    background-color: mat.get-theme-color($theme, background, dialog);
-    color: mat.get-theme-color($theme, foreground, text);
-}
-
-input:focus {
-    outline: none;
-    border-color: white; // todo change static color to variable
 }

@@ -27,6 +27,10 @@ export class RoutinesService {
     this.routines.push(routine);
   }
 
+  deleteRoutine(index: number) {
+    this.routines.splice(index, 1);
+  }
+
   addTask(routine: Routine, task: Task) {
     routine.tasks.push(task);
   }

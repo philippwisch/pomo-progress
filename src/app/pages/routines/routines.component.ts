@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
@@ -21,11 +21,24 @@ export class RoutinesComponent {
   routines: Routine[];
   selectedRoutine: Routine | null = null;
 
+  isNarrowScreen!: boolean;
+
   constructor(private routineService: RoutinesService) {
     this.routines = this.routineService.routines;
     if (this.routines.length > 0) {
       this.selectedRoutine = this.routines[0];
     }
+
+    this.checkScreenSize();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.checkScreenSize();
+  }
+
+  checkScreenSize() {
+    this.isNarrowScreen = window.innerWidth < 500;
   }
 
   selectRoutine(routine: any) {
@@ -38,6 +51,10 @@ export class RoutinesComponent {
     this.routineService.addRoutine(newRoutine);
     this.selectedRoutine = newRoutine;
     // todo autofocus for editing the name
+  }
+
+  deleteRoutine(index: number) {
+    this.routineService.deleteRoutine(index);
   }
 
   addTask() {
@@ -55,6 +72,7 @@ export class RoutinesComponent {
       this.routineService.reorderTasks(this.selectedRoutine, this.selectedRoutine.tasks.length - 1, index);
     }
   }
+
   deleteTask(index: number) {
     if (!(this.selectedRoutine === null)) {
       this.routineService.deleteTask(this.selectedRoutine, index);

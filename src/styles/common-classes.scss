@@ -1,0 +1,41 @@
+.flex-container {
+    display: flex;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-start {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.flex-end {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.flex-item-1-1 {
+    flex: 1 1 auto;
+}
+
+.flex-item-1-0 {
+    flex: 1 0 auto;
+}
+
+.overflow-scroll {
+    overflow-y: scroll;
+}
+
+.sharp-edges {
+    border-radius: 0 !important;
+}
+
+.margin-1 {
+    margin: 1px;
+}

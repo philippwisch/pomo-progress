@@ -1,10 +1,50 @@
 @use '@angular/material' as mat;
 @import '../../../theme.scss';
 
+@media(max-width: 500px) {
+
+    .responsive-layout {
+        flex-direction: column;
+    }
+
+    .left-menu,
+    .right-menu {
+        width: 100%;
+    }
+
+    .left-menu {
+        flex: 1 1 25%;
+    }
+
+    .right-menu {
+        flex: 1 1 75%;
+    }
+}
+
+@media(min-width: 501px) {
+    .left-menu {
+        width: 300px;
+    }
+}
+
+.left-menu .right-menu {
+    margin: 20px;
+}
+
+// show this small space between the two lists when stacking them vertically on top of each other
+.divider {
+    height: 40px;
+    box-sizing: border-box;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    border-left: none;
+    border-right: none;
+}
+
 .drag-handle {
     width: 40px;
     height: 40px;
-    background-color: mat.get-theme-color($theme, background, dialog);;
+    background-color: mat.get-theme-color($theme, background, dialog);
 }
 
 .add-button-container {
@@ -17,15 +57,18 @@
     align-items: flex-start;
     padding-top: 10px;
     // prevent bottom cutoff for the button's shadow
-    height: 80px !important;
+    height: 80px;
 }
 
 .list-item-task-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 2px 4px;
 }
 
-.left-menu {
-    width: 200px;
+.list-item-routine-container {
+    padding: 2px 4px;
 }
 
 mat-list {
@@ -33,22 +76,21 @@ mat-list {
 }
 
 // some changes to the default layout of mat-list
-// which only allows fixed-height items
+// which by default only allows fixed-height items
 mat-list-item {
-    background-color: mat.get-theme-color($theme, background, background);
+    background-color: #dddddd; // todo change the zebra color to reflect dark/light
     min-height: 0px !important;
     height: fit-content !important;
     padding: 0 !important;
+}
 
+// Zebra Stripes
+mat-list-item:nth-child(odd) {
+    background-color: #bbbbbb; // todo change the zebra color to reflect dark/light
 }
 
 mat-list-item:not(:last-child) {
     border-bottom: 1px solid black;
-}
-
-
-mat-list-item:nth-child(odd):not(:last-child) {
-    background-color: rgba(0, 0, 0, 0.1);
 }
 
 .cdk-drag-placeholder {

@@ -1,15 +1,19 @@
-<div class="main-container flex-container">
+<div class="main-container flex-container responsive-layout">
 
     <!-- routines-->
     <div class="left-menu overflow-scroll">
         <mat-list>
 
-            <ng-container *ngFor="let routine of routines;">
+            <ng-container *ngFor="let routine of routines; let index=index">
                 <mat-list-item>
-                    <div class="flex-container">
-                        <button mat-button class="multiline-button sharp-edges flex-item-1-1"
-                            (click)="selectRoutine(routine)" [class.highlight]="routine===selectedRoutine">
+                    <div class="flex-center list-item-routine-container" [class.highlight]="routine===selectedRoutine">
+                        <button mat-button class="flex-item-1-1 multiline-button sharp-edges mat-list-mat-button"
+                            [class.highlight]="routine===selectedRoutine" (click)="selectRoutine(routine)">
                             {{routine.name}}</button>
+                        <button mat-mini-fab class="margin-1" (click)="deleteRoutine(index)"><mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-mini-fab class="margin-1" (click)="deleteRoutine(index)"><mat-icon>close</mat-icon>
+                        </button>
                     </div>
                 </mat-list-item>
             </ng-container>
@@ -23,21 +27,26 @@
         </mat-list>
     </div>
 
+    <!-- small screen horizontal divider -->
+    <div *ngIf="isNarrowScreen" class="divider"></div>
 
     <!-- tasks -->
-    <div class="flex-item-1-1 overflow-scroll">
+    <div class="flex-item-1-1 right-menu overflow-scroll">
         <mat-list cdkDropList (cdkDropListDropped)="onTaskListDrop($event)">
 
             <ng-container *ngIf="selectedRoutine">
-                <ng-container *ngFor="let task of selectedRoutine.tasks; let index = index;">
+                <ng-container *ngFor="let task of selectedRoutine.tasks; let index=index;">
 
                     <mat-list-item cdkDrag>
-                        <div class="flex-center list-item-task-container">
-                            <div class="flex-item-1-1 margin-1">
-                                <div class="flex-center drag-handle" cdkDragHandle><mat-icon>drag_handle</mat-icon></div>
+                        <div class="list-item-task-container">
+                            <div class=" margin-1">
+                                <div class="flex-center drag-handle mat-elevation-z4" cdkDragHandle>
+                                    <mat-icon>drag_handle</mat-icon>
+                                </div>
                             </div>
-                            <app-task class="flex-item-1-0" [routine]="selectedRoutine" [index]="index" [task]="task"></app-task>
-                            <div class="flex-end flex-item-1-1">
+                            <app-task class="flex-item-1-1 flex-center" [routine]="selectedRoutine" [index]="index"
+                                [task]="task"></app-task>
+                            <div>
                                 <button mat-mini-fab class=" margin-1"
                                     (click)="duplicateTask(index)"><mat-icon>content_copy</mat-icon>
                                 </button>

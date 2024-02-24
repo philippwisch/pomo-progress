@@ -1,8 +1,10 @@
 @use '@angular/material' as mat;
 @import 'theme.scss';
-@import 'scrollbar.scss';
+@import 'styles/scrollbar.scss';
+@import 'styles/common-classes.scss';
 
-html, body {
+html,
+body {
     max-height: 100vh;
     margin: 0;
     padding: 0;
@@ -10,10 +12,28 @@ html, body {
 
 input {
     font-size: 1em;
+    background-color: mat.get-theme-color($theme, background, dialog);
+    color: mat.get-theme-color($theme, foreground, text);
+    box-sizing: border-box;
+    border: 1px solid black;
+    margin: 1px;
+}
+
+input:focus {
+    outline: none;
+    border-color: mat.get-theme-color($theme, primary, default);
 }
 
 * {
     font-family: 'Courier New', Courier, monospace
+}
+
+// layout for page content
+.main-container {
+    box-sizing: border-box;
+    max-width: 1200px;
+    height: calc(100vh - 84px); // 64px for toolbar, 10px * 2 for margins
+    margin: 10px auto;
 }
 
 // overwrites mat-buttons fixed height and no-wrap properties.
@@ -27,50 +47,8 @@ input {
     padding: 8.5px !important;
 }
 
-.main-container {
-    box-sizing: border-box;
-    max-width: 900px;
-    height: calc(100vh - 84px); // 64px for toolbar, 10px * 2 for margins
-    margin: 10px auto;
-}
-
-// common styling classes
-
-.flex-container {
-    display: flex;
-}
-
-.flex-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.flex-end {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-}
-
-.flex-item-1-1 {
-    flex: 1 1 auto;
-}
-
-.flex-item-1-0 {
-    flex: 1 0 auto;
-}
-
-.overflow-scroll {
-    overflow-y: scroll;
-}
-
-.sharp-edges {
-    border-radius: 0 !important;
-}
-
 .highlight {
     background-color: mat.get-theme-color($theme, primary, 800) !important;
-    // todo change static color to variable
-    color: white !important;
+    color: mat.get-theme-color($theme, primary, 800-contrast) !important;
     font-weight: bold !important;
 }

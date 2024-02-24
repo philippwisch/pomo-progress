@@ -11,7 +11,7 @@
 
 a {
     text-decoration: none;
-    color: white;
+    color: mat.get-theme-color($theme, primary, default-contrast);
     text-align: center;
     padding: 8px;
 }
