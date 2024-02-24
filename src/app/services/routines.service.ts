@@ -23,16 +23,29 @@ export class RoutinesService {
     this.routines.push(new Routine("Pomodoro", [new Task("Work", new Time(0, 25, 0), "#ff0000"), new Task("Rest", new Time(0, 5, 0), "#00ff00")]));
   }
 
-  addRoutine(routine: Routine) {
+  /**
+   * 
+   * @param routine Routine that will be added
+   * @returns Index of the new routine
+   */
+  addRoutine(routine: Routine): number {
     this.routines.push(routine);
+    return this.routines.length - 1;
   }
 
   deleteRoutine(index: number) {
     this.routines.splice(index, 1);
   }
 
+  updateRoutine(index: number, { name = null }: { name?: string | null }) {
+    if (name !== null) {
+      this.routines[index].name = name;
+    }
+  }
+
   addTask(routine: Routine, task: Task) {
     routine.tasks.push(task);
+    return routine.tasks.length - 1;
   }
 
   updateTask(routine: Routine, index: number,

@@ -11,6 +11,7 @@ body {
 }
 
 input {
+    height: 48px;
     font-size: 1em;
     background-color: mat.get-theme-color($theme, background, dialog);
     color: mat.get-theme-color($theme, foreground, text);
