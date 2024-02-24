@@ -3,11 +3,7 @@
 ::-webkit-scrollbar {
     width: 4px;
 }
- 
-
 
 ::-webkit-scrollbar-thumb {
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
     background: mat.get-theme-color($theme, primary, default);
 }
