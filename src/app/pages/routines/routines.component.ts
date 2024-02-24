@@ -21,24 +21,11 @@ export class RoutinesComponent {
   routines: Routine[];
   selectedRoutine: Routine | null = null;
 
-  isNarrowScreen!: boolean;
-
   constructor(private routineService: RoutinesService) {
     this.routines = this.routineService.routines;
     if (this.routines.length > 0) {
       this.selectedRoutine = this.routines[0];
     }
-
-    this.checkScreenSize();
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event: any) {
-    this.checkScreenSize();
-  }
-
-  checkScreenSize() {
-    this.isNarrowScreen = window.innerWidth < 500;
   }
 
   selectRoutine(routine: any) {

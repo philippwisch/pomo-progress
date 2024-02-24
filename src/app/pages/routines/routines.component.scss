@@ -31,14 +31,12 @@
     margin: 20px;
 }
 
-// show this small space between the two lists when stacking them vertically on top of each other
+// show this small space between the two lists
+// width for side-by-side
+// height for vertical stacking
 .divider {
+    width: 10px;
     height: 40px;
-    box-sizing: border-box;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
-    border-left: none;
-    border-right: none;
 }
 
 .drag-handle {
