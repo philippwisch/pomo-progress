@@ -23,34 +23,28 @@ export class RoutinesService {
     this.routines.push(new Routine("Pomodoro", [new Task("Work", new Time(0, 25, 0), "#ff0000"), new Task("Rest", new Time(0, 5, 0), "#00ff00")]));
   }
 
-  /**
-   * 
-   * @param routine Routine that will be added
-   * @returns Index of the new routine
-   */
   addRoutine(routine: Routine): number {
     this.routines.push(routine);
-    return this.routines.length - 1;
+    return this.routines.indexOf(routine);
   }
 
-  deleteRoutine(index: number) {
-    this.routines.splice(index, 1);
+  deleteRoutine(routine: Routine) {
+    this.routines.splice(this.routines.indexOf(routine), 1);
   }
 
-  updateRoutine(index: number, { name = null }: { name?: string | null }) {
+  updateRoutine(routine: Routine, { name = null }: { name?: string | null }) {
     if (name !== null) {
-      this.routines[index].name = name;
+      routine.name = name;
     }
   }
 
-  addTask(routine: Routine, task: Task) {
+  addTask(routine: Routine, task: Task): number {
     routine.tasks.push(task);
-    return routine.tasks.length - 1;
+    return routine.tasks.indexOf(task);
   }
 
-  updateTask(routine: Routine, index: number,
+  updateTask(task: Task,
     { name = null, time = null, color = null }: { name?: string | null, time?: Time | null, color?: string | null }) {
-    let task = routine.tasks[index];
 
     if (name !== null) {
       task.name = name;
@@ -63,8 +57,8 @@ export class RoutinesService {
     }
   }
 
-  deleteTask(routine: Routine, index: number) {
-    routine.tasks.splice(index, 1);
+  deleteTask(routine: Routine, task: Task) {
+    routine.tasks.splice(routine.tasks.indexOf(task), 1);
   }
 
   reorderTasks(routine: Routine, previousIndex: number, currentIndex: number): void {

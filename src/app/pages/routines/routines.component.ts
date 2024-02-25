@@ -35,75 +35,79 @@ export class RoutinesComponent {
   }
 
   routines: Routine[];
-  selectedRoutineIndex: number | null = null;
-  selectedRoutineForEditIndex: number | null = null;
+  selectedRoutine: Routine | null = null;
+  selectedForEditRoutine: Routine | null = null;
 
   constructor(private routineService: RoutinesService) {
     this.routines = this.routineService.routines;
+    // todo get last selected routine from appState Service
+    // or else just select the first routine
+    this.selectFirstRoutine();
+  }
+
+  selectRoutine(routine: Routine) {
+    this.selectedRoutine = routine;
+  }
+
+  selectFirstRoutine() {
     if (this.routines.length > 0) {
-      this.selectedRoutineIndex = 0; // todo get this from app prefs or soms app state storage service
+      this.selectRoutine(this.routines[0]);
+    } else {
+      this.selectedRoutine = null;
     }
   }
 
-  selectRoutine(index: number) {
-    this.selectedRoutineIndex = index;
-    console.log(this.routines[this.selectedRoutineIndex].tasks);
+  editRoutine(routine: Routine) {
+    this.selectedForEditRoutine = routine;
   }
 
-  editRoutine(index: number) {
-    this.selectedRoutineForEditIndex = index;
-  }
-
-  saveRoutine(index: number, name: string) {
-    this.selectedRoutineForEditIndex = null;
-    this.routineService.updateRoutine(index, { name: name });
+  saveRoutine(routine: Routine, name: string) {
+    this.selectedForEditRoutine = null;
+    this.updateRoutine(routine, { name: name });
   }
 
   addRoutine() {
     let newRoutine = new Routine("New Routine", [new Task("", new Time("", "", ""), "#ff0000")]);
-    this.selectedRoutineIndex = this.routineService.addRoutine(newRoutine);
-
+    this.routineService.addRoutine(newRoutine);
+    this.selectedRoutine = newRoutine;
     // todo autofocus for editing the name
   }
 
-  deleteRoutine(index: number) {
-    this.routineService.deleteRoutine(index);
-    if (this.selectedRoutineIndex === index) {
-      console.log("should work lol");
-      this.selectedRoutineIndex = null;
+  deleteRoutine(routine: Routine) {
+    if (this.selectedRoutine === routine) {
+      this.selectedRoutine = null;
+    }
+    this.routineService.deleteRoutine(routine);
+    if (this.selectedRoutine === null) {
+      this.selectFirstRoutine();
     }
   }
 
-  updateRoutine(param: { name?: string | null }) {
-    if (!(this.selectedRoutineForEditIndex === null)) {
-      this.routineService.updateRoutine(this.selectedRoutineForEditIndex, param);
-    }
+  updateRoutine(routine: Routine, updatedValues: { name?: string | null }) {
+    this.routineService.updateRoutine(routine, updatedValues);
   }
 
-  addTask() {
-    if (!(this.selectedRoutineIndex === null)) {
-      // todo: pick random color
-      let newTask = new Task("", new Time(0, 5, 0), "#ff0000"); // default values for new task
-      this.routineService.addTask(this.routines[this.selectedRoutineIndex], newTask);
-    }
+  addTask(routine: Routine) {
+    // todo: pick random color or check existing tasks for a task with the same name and copy its color
+    const newTask = new Task("", new Time(0, 5, 0), "#ff0000"); // default values for new task
+    this.routineService.addTask(routine, newTask);
   }
 
-  duplicateTask(index: number) {
-    if (!(this.selectedRoutineIndex === null)) {
-      const dupIndex = this.routineService.addTask(this.routines[this.selectedRoutineIndex], { ...this.routines[this.selectedRoutineIndex].tasks[index] });
-      this.routineService.reorderTasks(this.routines[this.selectedRoutineIndex], dupIndex, index);
-    }
+  // todo change this to work with task reference and BEFORE or AFTER as a parameter to avoid using indexes
+  duplicateTask(routine: Routine, task: Task) {
+    const newTask = { ...task };
+    const duplicateIndex = this.routineService.addTask(routine, newTask);
+    const originalIndex = routine.tasks.indexOf(task);
+    this.routineService.reorderTasks(routine, duplicateIndex, originalIndex);
   }
 
-  deleteTask(index: number) {
-    if (!(this.selectedRoutineIndex === null)) {
-      this.routineService.deleteTask(this.routines[this.selectedRoutineIndex], index);
-    }
+  deleteTask(routine: Routine, task: Task) {
+    this.routineService.deleteTask(routine, task);
   }
 
   onTaskListDrop(event: CdkDragDrop<string[]>) {
-    if (!(this.selectedRoutineIndex === null)) {
-      this.routineService.reorderTasks(this.routines[this.selectedRoutineIndex], event.previousIndex, event.currentIndex);
+    if (!(this.selectedRoutine === null)) {
+      this.routineService.reorderTasks(this.selectedRoutine, event.previousIndex, event.currentIndex);
     }
   }
 }

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Task } from '../../typedefs/task.class';
 import { Routine } from '../../typedefs/routine.class';
 import { RoutinesService } from '../../services/routines.service';
@@ -17,13 +17,12 @@ import { Time } from '../../typedefs/time.class';
 export class TaskComponent {
   // REQUIRED INPUTS
   @Input() routine!: Routine;
-  @Input() index!: number;
   @Input() task!: Task;
 
   constructor(private routineService: RoutinesService) { }
 
-  private updateTask(param: { name?: string | null, time?: Time | null, color?: string | null }) {
-    this.routineService.updateTask(this.routine, this.index, param);
+  private updateTask(updatedValues: { name?: string | null, time?: Time | null, color?: string | null }) {
+    this.routineService.updateTask(this.task, updatedValues);
   }
 
   onNameChange(input: HTMLInputElement) {
