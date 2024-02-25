@@ -31,7 +31,8 @@ input:focus {
 
 // layout for page content
 .main-container {
-    box-sizing: border-box;
+    position: relative;
+    top: 64px;
     max-width: 1200px;
     height: calc(100vh - 84px); // 64px for toolbar, 10px * 2 for margins
     margin: 10px auto;
