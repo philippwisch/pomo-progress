@@ -1,11 +1,25 @@
 @use '@angular/material' as mat;
 @import '../../../theme.scss';
 
+.menu-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
 
+    background-color: mat.get-theme-color($theme, primary, default);
+}
+
+.menu-panel>a {
+    border-bottom : 1px solid mat.get-theme-color($theme, primary, default-contrast);;
+}
+
+.menu-panel>a:first-child {
+    border-top : 1px solid mat.get-theme-color($theme, primary, default-contrast);;
+}
 
 .mat-toolbar {
     display: flex;
-    justify-content: center;
     align-items: center;
 }
 

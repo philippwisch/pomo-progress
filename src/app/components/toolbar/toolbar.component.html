@@ -1,9 +1,22 @@
 <mat-toolbar color="primary">
-    <div>
-        <a routerLink="/timer" routerLinkActive="highlight">Timer</a>
-        <a routerLink="/routines" routerLinkActive="highlight">Routines</a>
-        <a routerLink="/timeline" routerLinkActive="highlight">Timeline</a>
-        <a routerLink="/progress" routerLinkActive="highlight">Progress</a>
-        <a routerLink="/goals" routerLinkActive="highlight">Goals</a>
+    <div class="toolbar-content">
+        <!-- for wide screens -->
+        <ng-container *ngIf="!isSmallScreen">
+            <a *ngFor="let link of links" routerLink="{{link.url}}" routerLinkActive="highlight">{{link.label}}</a>
+        </ng-container>
+
+        <!-- Menu button for narrow screens -->
+        <ng-container *ngIf="isSmallScreen">
+            <button mat-icon-button (click)="toggleMenu()" class="menu-button">
+                <mat-icon>menu</mat-icon>
+            </button>
+        </ng-container>
     </div>
 </mat-toolbar>
+
+<!-- Floating panel for menu -->
+<ng-container *ngIf="showMenu && isSmallScreen">
+    <div class="menu-panel mat-elevation-z4">
+        <a *ngFor="let link of links" routerLink="{{link.url}}" routerLinkActive="highlight">{{link.label}}</a>
+    </div>
+</ng-container>
