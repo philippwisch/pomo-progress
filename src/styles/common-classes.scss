@@ -20,6 +20,16 @@
     align-items: center;
 }
 
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
 .flex-item-1-1 {
     flex: 1 1 auto;
 }
@@ -30,6 +40,7 @@
 
 .overflow-scroll {
     overflow-y: scroll;
+    overflow-x: scroll;
 }
 
 .sharp-edges {
