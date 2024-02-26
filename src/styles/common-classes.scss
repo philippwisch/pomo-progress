@@ -1,3 +1,5 @@
+// Some commonly used property combinations bundled in classes for easier usage and less code repetition
+
 .flex-container {
     display: flex;
 }
@@ -30,10 +32,12 @@
     flex-direction: column;
 }
 
+// can grow and shrink
 .flex-item-1-1 {
     flex: 1 1 auto;
 }
 
+// can grow CANNOT shrink
 .flex-item-1-0 {
     flex: 1 0 auto;
 }

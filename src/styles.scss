@@ -3,9 +3,12 @@
 @import 'styles/scrollbar.scss';
 @import 'styles/common-classes.scss';
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// GLOBAL STYLES
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 html,
 body {
-    max-height: 100vh;
     margin: 0;
     padding: 0;
 }
@@ -29,15 +32,6 @@ input:focus {
     font-family: 'Courier New', Courier, monospace
 }
 
-// layout for page content
-.main-container {
-    position: relative;
-    top: 64px;
-    max-width: 1200px;
-    height: calc(100vh - 84px); // 64px for toolbar, 10px * 2 for margins
-    margin: 10px auto;
-}
-
 // overwrites mat-buttons fixed height and no-wrap properties.
 // angular material library uses fixed-size for button height
 // which is very restrictive. E.g. if you change font size to over 36px (mat button height)
@@ -47,6 +41,24 @@ input:focus {
     word-wrap: break-word !important;
     height: fit-content !important;
     padding: 8.5px !important;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// GLOBAL CLASSES WITH STYLES USED THROUGHOUT THE ENTIRE APP
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Possible Layout for page content:
+// - Takes up all available vertical space of the parent container
+// - child elements using overflow scroll or overflow hidden will not grow outside the parent
+// - Horizontally centered with a max width of 1200px
+.page-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    max-width: 1200px;
+    width: 100%;
+    left: 50%;
+    transform: translate(-50%);
 }
 
 .highlight {
