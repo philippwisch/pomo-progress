@@ -3,11 +3,11 @@ import { Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
-import { Routine } from '../../typedefs/routine.class';
+import { Routine } from '../../core/typedefs/routine.class';
 import { RoutinesService } from '../../services/routines.service';
-import { Task } from '../../typedefs/task.class';
+import { Task } from '../../core/typedefs/task.class';
 import { TaskComponent } from "../../components/task/task.component";
-import { Time } from '../../typedefs/time.class';
+import { Time } from '../../core/typedefs/time.class';
 import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
 
 @Component({

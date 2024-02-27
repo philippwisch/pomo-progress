@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Routine } from '../typedefs/routine.class';
-import { Task } from '../typedefs/task.class';
-import { Time } from '../typedefs/time.class';
+import { Routine } from '../core/typedefs/routine.class';
+import { Task } from '../core/typedefs/task.class';
+import { Time } from '../core/typedefs/time.class';
 
 @Injectable({
   providedIn: 'root'

@@ -1,18 +1,19 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { Task } from '../../typedefs/task.class';
-import { Routine } from '../../typedefs/routine.class';
+import { Task } from '../../core/typedefs/task.class';
+import { Routine } from '../../core/typedefs/routine.class';
 import { RoutinesService } from '../../services/routines.service';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-import { Time } from '../../typedefs/time.class';
+import { Time } from '../../core/typedefs/time.class';
+import { PadWithZeroesPipe } from "../../core/pipes/pad-with-zeroes.pipe";
 
 @Component({
-  selector: 'app-task',
-  standalone: true,
-  imports: [CommonModule, FormsModule, MatInputModule],
-  templateUrl: './task.component.html',
-  styleUrl: './task.component.scss'
+    selector: 'app-task',
+    standalone: true,
+    templateUrl: './task.component.html',
+    styleUrl: './task.component.scss',
+    imports: [CommonModule, FormsModule, MatInputModule, PadWithZeroesPipe]
 })
 export class TaskComponent {
   // REQUIRED INPUTS
