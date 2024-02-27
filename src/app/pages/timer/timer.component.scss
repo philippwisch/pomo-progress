@@ -1,0 +1,22 @@
+#sidenav-container {
+    height: 100%;
+}
+
+#sidenav-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 64px;
+}
+
+#sidenav{
+    width: 250px;
+}
+
+#sidenav-toggle-button {
+    margin:5px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
