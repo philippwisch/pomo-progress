@@ -1,0 +1,22 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+
+@mixin theme($theme) {
+    .menu-panel {
+        background-color: mat.get-theme-color($theme, primary, default);
+    }
+
+    .menu-panel>a {
+        border-bottom: 1px solid mat.get-theme-color($theme, primary, default-contrast);
+        ;
+    }
+
+    .menu-panel>a:first-child {
+        border-top: 1px solid mat.get-theme-color($theme, primary, default-contrast);
+        ;
+    }
+
+    a {
+        color: mat.get-theme-color($theme, primary, default-contrast);
+    }
+}

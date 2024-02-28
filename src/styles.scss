@@ -16,8 +16,8 @@ body {
 input {
     height: 48px;
     font-size: 1em;
-    background-color: mat.get-theme-color($theme, background, dialog);
-    color: mat.get-theme-color($theme, foreground, text);
+    //background-color: mat.get-theme-color($theme, background, dialog);
+    //color: mat.get-theme-color($theme, foreground, text);
     box-sizing: border-box;
     border: 1px solid black;
     margin: 1px;
@@ -25,7 +25,7 @@ input {
 
 input:focus {
     outline: none;
-    border-color: mat.get-theme-color($theme, primary, default);
+    //border-color: mat.get-theme-color($theme, primary, default);
 }
 
 * {
@@ -62,7 +62,7 @@ input:focus {
 }
 
 .highlight {
-    background-color: mat.get-theme-color($theme, primary, 800) !important;
-    color: mat.get-theme-color($theme, primary, 800-contrast) !important;
+    //background-color: mat.get-theme-color($theme, primary, 800) !important;
+    //color: mat.get-theme-color($theme, primary, 800-contrast) !important;
     font-weight: bold !important;
 }

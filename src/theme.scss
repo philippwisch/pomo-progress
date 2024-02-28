@@ -1,26 +1,52 @@
 @use '@angular/material' as mat;
 @use 'app/pages/routines/_routines-theme.component.scss' as routines;
+@use 'app/components/toolbar/_toolbar-theme.component.scss' as toolbar;
 @include mat.core();
 
-$theme: mat.define-light-theme((
-  color: (
-    primary: mat.define-palette(mat.$red-palette),
-    accent: mat.define-palette(mat.$green-palette),
-  )
-));
+$theme: mat.define-light-theme((color: (primary: mat.define-palette(mat.$cyan-palette),
+        accent: mat.define-palette(mat.$green-palette),
+      )));
 
-$angular-dark-theme: mat.define-dark-theme(
-  (
-    color: (
-      primary: mat.define-palette(mat.$red-palette),
-      accent: mat.define-palette(mat.$green-palette, 900),
-    ),
-  )
-);
+$angular-dark-theme: mat.define-dark-theme((color: (primary: mat.define-palette(mat.$red-palette),
+        accent: mat.define-palette(mat.$green-palette, 900),
+      ),
+    ));
 
-.dark-mode {
-  @include routines.theme($angular-dark-theme);
-  @include mat.all-component-themes($angular-dark-theme);
+@mixin global-styles($theme) {
+  input {
+    background-color: mat.get-theme-color($theme, background, dialog);
+    color: mat.get-theme-color($theme, foreground, text);
+  }
+
+  input:focus {
+    border-color: mat.get-theme-color($theme, primary, default);
+  }
+
+  .highlight {
+    background-color: mat.get-theme-color($theme, primary, 800) !important;
+    color: mat.get-theme-color($theme, primary, 800-contrast) !important;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: mat.get-theme-color($theme, primary, default);
+  }
+
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
 }
 
-@include mat.all-component-themes($theme);
+.dark-mode {
+  @include mat.all-component-themes($angular-dark-theme);
+  @include global-styles($angular-dark-theme);
+  @include routines.theme($angular-dark-theme);
+  @include toolbar.theme($angular-dark-theme);
+}
+
+.light-mode {
+  @include mat.all-component-themes($theme);
+  @include global-styles($theme);
+  @include routines.theme($theme);
+  @include toolbar.theme($theme);
+}

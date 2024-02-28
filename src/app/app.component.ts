@@ -16,9 +16,11 @@ export class AppComponent {
   constructor(darkModeService: DarkModeService, renderer: Renderer2) {
     darkModeService.isDarkMode$.subscribe(isDarkMode => {
       if (isDarkMode) {
+        renderer.removeClass(document.body, 'light-mode');
         renderer.addClass(document.body, 'dark-mode');
       } else {
         renderer.removeClass(document.body, 'dark-mode');
+        renderer.addClass(document.body, 'light-mode');
       }
     })
   }
