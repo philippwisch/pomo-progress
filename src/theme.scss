@@ -1,14 +1,26 @@
 @use '@angular/material' as mat;
+@use 'app/pages/routines/_routines-theme.component.scss' as routines;
 @include mat.core();
-
-$primary: mat.define-palette(mat.$red-palette, 600);
-$accent: mat.define-palette(mat.$green-palette, 900);
 
 $theme: mat.define-light-theme((
   color: (
-    primary: $primary,
-    accent: $accent,
+    primary: mat.define-palette(mat.$red-palette),
+    accent: mat.define-palette(mat.$green-palette),
   )
 ));
+
+$angular-dark-theme: mat.define-dark-theme(
+  (
+    color: (
+      primary: mat.define-palette(mat.$red-palette),
+      accent: mat.define-palette(mat.$green-palette, 900),
+    ),
+  )
+);
+
+.dark-mode {
+  @include routines.theme($angular-dark-theme);
+  @include mat.all-component-themes($angular-dark-theme);
+}
 
 @include mat.all-component-themes($theme);

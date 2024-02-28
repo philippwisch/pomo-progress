@@ -1,0 +1,16 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+
+@mixin theme($theme) {
+    .drag-handle {
+        background-color: mat.get-theme-color($theme, background, dialog);
+    }
+
+    .add-button-container {
+        background-color: mat.get-theme-color($theme, background, background);
+    }
+
+    .cdk-drag-preview {
+        background-color: mat.get-theme-color($theme, primary, A200) !important;
+    }
+}
