@@ -6,10 +6,19 @@ export class Time {
   constructor(hours: number | string, minutes: number | string, seconds: number | string);
   constructor(seconds: number);
   constructor(hoursOrSeconds: number | string, minutes?: number | string, seconds?: number | string) {
-    if (typeof  hoursOrSeconds === 'number' && typeof minutes === 'undefined' && typeof seconds === 'undefined') {
-      this.hours = Math.floor(hoursOrSeconds / 3600);
-      this.minutes = Math.floor((hoursOrSeconds % 3600) / 60);
-      this.seconds = hoursOrSeconds % 60;
+    if (typeof hoursOrSeconds === 'number' && typeof minutes === 'undefined' && typeof seconds === 'undefined') {
+      let totalSeconds = hoursOrSeconds;
+      if (hoursOrSeconds < 0) {
+        totalSeconds = Math.abs(hoursOrSeconds);
+      }
+      this.hours = Math.floor(totalSeconds / 3600);
+      this.minutes = Math.floor((totalSeconds % 3600) / 60);
+      this.seconds = totalSeconds % 60;
+      if (hoursOrSeconds < 0) {
+        this.hours *= -1;
+        this.minutes *= -1;
+        this.seconds *= -1;
+      }
     } else {
       this.hours = this.parseInput(hoursOrSeconds);
       this.minutes = this.parseInput(minutes || 0);
@@ -22,6 +31,6 @@ export class Time {
   }
 
   toSeconds(): number {
-    return this.hours * 3600 + this.minutes * 60 + this.seconds
+    return this.hours * 3600 + this.minutes * 60 + this.seconds;
   }
 }
