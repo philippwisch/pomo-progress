@@ -13,7 +13,12 @@ export class RoutinesService {
 
   constructor() {
     // placeholders for now
-    this.routines.push(new Routine("Test", [new Task("Task 1", new Time(0, 0, 2), "#ff0000"), new Task("Task 2", new Time(0, 0, 3), "#00ff00")]));
+    this.routines.push(new Routine("Test",
+      [new Task("Task 1", new Time(0, 0, 1), "#ff0000"),
+      new Task("Task 2", new Time(0, 0, 2), "#00ff00"),
+      new Task("Task 3", new Time(0, 0, 3), "#0000ff"),
+      ]));
+      this.routines.push(new Routine("Test 2", [new Task("Task A1", new Time(0, 0, 2), "#ffff00")]));
   }
 
   addRoutine(routine: Routine): number {

@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { RoutinesService } from '../../services/routines.service';
 import { Routine } from '../../core/typedefs/routine.class';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -36,17 +36,25 @@ export class TimerComponent {
   private pauseStatusSubscription: Subscription | undefined;
   private remainingTimeSubscription: Subscription | undefined;
 
-  constructor(private routineService: RoutinesService, private taskTrackingService: taskTrackingService) {
-    this.activeRoutineSubscription = this.taskTrackingService.getActiveRoutine().subscribe(routine => this.activeRoutine = routine);
+  constructor(private routineService: RoutinesService, public taskTrackingService: taskTrackingService) {
+    this.routines = this.routineService.routines;
+
+
+    this.activeRoutineSubscription = this.taskTrackingService.getActiveRoutine().subscribe(routine => {
+      this.activeRoutine = routine
+      if (!this.activeRoutine && this.routines.length > 0) {
+        // if there is no selected routine, simply select the first by default
+        this.taskTrackingService.setActiveRoutine(this.routines[0]);
+      }
+    });
     this.activetaskSubscription = this.taskTrackingService.getActiveTask().subscribe(task => this.activeTask = task);
+
     this.pauseStatusSubscription = this.taskTrackingService.getPauseStatus().subscribe(status => this.isPaused = status);
 
     this.remainingTimeSubscription = this.taskTrackingService.getRemainingTime().subscribe(time => {
       this.timeRemaining = time;
       this.timeRemainingSign = this.timeRemaining.toSeconds() < 0 ? "-" : "";
     })
-
-    this.routines = this.routineService.routines;
   }
 
   ngOnDestroy(): void {
@@ -64,17 +72,13 @@ export class TimerComponent {
     }
   }
 
-  onRoutineChange() {
-    if (this.activeRoutine) {
-      this.taskTrackingService.setActiveRoutine(this.activeRoutine);
-    }
-  }
-
   toggleTaskPaused() {
     this.taskTrackingService.togglePauseStatus();
   }
 
   skipTask() { }
 
-
+  onActiveRoutineChange(event: MatSelectChange) {
+    this.taskTrackingService.setActiveRoutine(event.value);
+  }
 }

@@ -8,17 +8,21 @@ import { Routine } from '../core/typedefs/routine.class';
   providedIn: 'root'
 })
 export class TaskTrackingService {
-  private timer: any;
+  public isAutoStartNextTask: boolean = false;
+  public isAutoRepeatRoutine: boolean = false;
 
-  private activeRoutine: Routine = {} as Routine;
+
+  private activeRoutine: Routine | null = null;
   private activeTask: Task | null = null;
   private isPaused: boolean = true;
   private remainingTime = new Time(0, 0, 0);
 
-  private activeRoutineSubject = new BehaviorSubject<Routine>({} as Routine);
+  private activeRoutineSubject = new BehaviorSubject<Routine | null>(null);
   private activeTaskSubject = new BehaviorSubject<Task>({} as Task);
   private isPausedSubject = new BehaviorSubject<boolean>(this.isPaused);
   private remainingTimeSubject = new BehaviorSubject<Time>(this.remainingTime);
+
+  private timer: any;
 
   constructor() {
   }
@@ -32,7 +36,7 @@ export class TaskTrackingService {
     this.isPausedSubject.next(status);
     if (status) {
       this.stopTimer();
-    } else {
+    } else if(!this.timer) {
       this.startTimer();
     }
   }
@@ -41,7 +45,7 @@ export class TaskTrackingService {
     this.setPauseStatus(!this.isPaused);
   }
 
-  getActiveRoutine(): Observable<Routine> {
+  getActiveRoutine(): Observable<Routine | null> {
     return this.activeRoutineSubject.asObservable();
   }
   setActiveRoutine(routine: Routine) {
@@ -75,23 +79,43 @@ export class TaskTrackingService {
 
   private startTimer() {
     this.timer = setInterval(() => {
-      this.remainingTime = new Time(this.remainingTime.toSeconds() - 1);
-      this.remainingTimeSubject.next(this.remainingTime);
-
-      if (this.remainingTime.toSeconds() <= 0 && this.activeTask) {
-        const nextTaskIndex = this.activeRoutine.tasks.indexOf(this.activeTask) + 1;
-        if (nextTaskIndex < this.activeRoutine.tasks.length) {
-          const nextTask = this.activeRoutine.tasks[nextTaskIndex];
-          this.setActiveTask(nextTask);
-        } else {
-          this.setPauseStatus(true);
-          this.activeTask = null;
-        }
-      }
+      this.decreaseRemainingTime();
+      this.checkTaskCompletion();
     }, 1000); // Decrease time every second
   }
 
   private stopTimer() {
     clearInterval(this.timer);
+    this.timer = null;
+  }
+
+  private decreaseRemainingTime() {
+    // decrease time by 1 second
+    const updatedSeconds = this.remainingTime.toSeconds() - 1;
+    this.setRemainingTime(new Time(updatedSeconds));
+  }
+
+  private checkTaskCompletion() {
+    // if the task is ending
+    if (this.remainingTime.toSeconds() <= 0 && this.activeTask) {
+      const nextTaskIndex = this.activeRoutine!.tasks.indexOf(this.activeTask) + 1;
+      // if there are more tasks
+      if (nextTaskIndex < this.activeRoutine!.tasks.length) {
+        this.moveToTask(this.activeRoutine!.tasks[nextTaskIndex], this.isAutoStartNextTask);
+        // if this was the last task
+      } else {
+        this.handleRoutineCompletion(this.isAutoRepeatRoutine)
+      }
+    }
+  }
+
+  private moveToTask(nextTask: Task, isAutoStart: boolean) {
+    this.setActiveTask(nextTask);
+    this.setPauseStatus(!isAutoStart);
+  }
+
+  private handleRoutineCompletion(isAutoStart: boolean) {
+    this.setActiveRoutine(this.activeRoutine!); // this will reset the routine to the beginning
+    this.setPauseStatus(!isAutoStart);
   }
 }

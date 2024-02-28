@@ -3,12 +3,12 @@
 
         <mat-form-field>
             <mat-label>Routine</mat-label>
-            <mat-select [(ngModel)]="activeRoutine" (ngModelChange)="onRoutineChange()">
+            <mat-select [(ngModel)]="activeRoutine" (selectionChange)="onActiveRoutineChange($event)">
                 <mat-option *ngFor="let routine of routines" [value]="routine">{{routine.name}}</mat-option>
             </mat-select>
         </mat-form-field>
-        <mat-checkbox>When a task finishes, automatically start the next task</mat-checkbox>
-        <mat-checkbox>Repeat the current routine after it finishes</mat-checkbox>
+        <mat-checkbox [(ngModel)]="taskTrackingService.isAutoStartNextTask">autostart tasks</mat-checkbox>
+        <mat-checkbox [(ngModel)]="taskTrackingService.isAutoRepeatRoutine">repeat routine</mat-checkbox>
         <div>
             show a list of all the tasks of the routine and highlight which step you are on
             also show a "total time left" string
