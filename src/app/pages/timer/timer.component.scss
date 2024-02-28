@@ -8,15 +8,20 @@
     justify-content: center;
     align-items: center;
     font-size: 64px;
+    transition: background-color 0.25s ease;
 }
 
-#sidenav{
+#sidenav {
     width: 250px;
 }
 
 #sidenav-toggle-button {
-    margin:5px;
+    margin: 5px;
     position: absolute;
     top: 0;
     left: 0;
+}
+
+#routine-select {
+    width: 100%;
 }

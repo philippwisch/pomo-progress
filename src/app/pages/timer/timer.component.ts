@@ -12,8 +12,8 @@ import { TaskTrackingService as taskTrackingService } from '../../services/task-
 import { Task } from '../../core/typedefs/task.class';
 import { Subscription } from 'rxjs';
 import { Time } from '../../core/typedefs/time.class';
-import { PadWithZeroesPipe } from "../../core/pipes/pad-with-zeroes.pipe";
-import { MathAbsPipe } from "../../core/pipes/math-abs.pipe";
+import { FormatTimePipe } from "../../core/pipes/format-time.pipe";
+import { trigger, style, animate, transition } from '@angular/animations';
 
 
 @Component({
@@ -21,7 +21,15 @@ import { MathAbsPipe } from "../../core/pipes/math-abs.pipe";
   standalone: true,
   templateUrl: './timer.component.html',
   styleUrl: './timer.component.scss',
-  imports: [CommonModule, FormsModule, MatCheckboxModule, MatButtonModule, MatSelectModule, MatSidenavModule, MatIconModule, PadWithZeroesPipe, MathAbsPipe]
+  animations: [
+    trigger('colorChange', [
+      transition(':enter', [
+        style({ backgroundColor: 'transparent' }),
+        animate('500ms', style({ backgroundColor: '*' })),
+      ]),
+    ]),
+  ],
+  imports: [CommonModule, FormsModule, MatCheckboxModule, MatButtonModule, MatSelectModule, MatSidenavModule, MatIconModule, FormatTimePipe]
 })
 export class TimerComponent {
   routines: Routine[];
@@ -80,5 +88,9 @@ export class TimerComponent {
 
   onActiveRoutineChange(event: MatSelectChange) {
     this.taskTrackingService.setActiveRoutine(event.value);
+  }
+
+  onTaskSelect(task: Task) {
+    this.taskTrackingService.setActiveTask(task);
   }
 }

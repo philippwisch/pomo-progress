@@ -1,44 +1,43 @@
 <mat-sidenav-container id="sidenav-container">
     <mat-sidenav #sidenav mode="side" id="sidenav" opened>
 
-        <mat-form-field>
+        <mat-form-field id="routine-select">
             <mat-label>Routine</mat-label>
             <mat-select [(ngModel)]="activeRoutine" (selectionChange)="onActiveRoutineChange($event)">
                 <mat-option *ngFor="let routine of routines" [value]="routine">{{routine.name}}</mat-option>
             </mat-select>
         </mat-form-field>
         <mat-checkbox [(ngModel)]="taskTrackingService.isAutoStartNextTask">autostart tasks</mat-checkbox>
-        <mat-checkbox [(ngModel)]="taskTrackingService.isAutoRepeatRoutine">repeat routine</mat-checkbox>
-        <div>
-            show a list of all the tasks of the routine and highlight which step you are on
-            also show a "total time left" string
+        <mat-checkbox [(ngModel)]="taskTrackingService.isAutoRepeatRoutine">autorestart routine</mat-checkbox>
+        <div class="flex-column">
+            <button mat-flat-button *ngFor="let task of activeRoutine?.tasks" class="multiline-button"
+                [class.highlight]="task === activeTask" (click)="onTaskSelect(task)">{{task.name}}<br>{{task.time |
+                formatTime}}</button>
         </div>
     </mat-sidenav>
     3
-    <mat-sidenav-content id="sidenav-content">
+    <mat-sidenav-content id="sidenav-content" [style.backgroundColor]="activeTask?.color">
         <button mat-mini-fab id="sidenav-toggle-button" (click)="sidenav.toggle()">
             <mat-icon *ngIf="sidenav.opened">navigate_before</mat-icon>
             <mat-icon *ngIf="!sidenav.opened">navigate_next</mat-icon>
         </button>
 
-        <div>{{activeTask?.name}}</div>
-
-        <div>{{timeRemainingSign +(timeRemaining.hours | mathAbs | padWithZeroes:2)}}:{{timeRemaining.minutes | mathAbs
-            | padWithZeroes:2}}:{{timeRemaining.seconds | mathAbs | padWithZeroes:2}}
-        </div>
-
-        <div class="flex-center">
-            <button mat-fab (click)="skipTask()">
-                <mat-icon>skip_previous</mat-icon>
-            </button>
-            <button mat-fab (click)="toggleTaskPaused()">
-                <mat-icon>{{isPaused ? 'play_arrow' : 'pause'}}</mat-icon>
-            </button>
-            <button mat-fab (click)="skipTask()">
-                <mat-icon>skip_next</mat-icon>
-            </button>
-        </div>
-
+        <ng-container *ngIf="activeRoutine && activeRoutine.tasks.length > 0">
+            <!-- task timer -->
+            <div>{{activeTask?.name}}</div>
+            <div>{{timeRemaining | formatTime}}</div>
+            <div class="flex-center">
+                <button mat-fab (click)="skipTask()">
+                    <mat-icon>skip_previous</mat-icon>
+                </button>
+                <button mat-fab (click)="toggleTaskPaused()">
+                    <mat-icon>{{isPaused ? 'play_arrow' : 'pause'}}</mat-icon>
+                </button>
+                <button mat-fab (click)="skipTask()">
+                    <mat-icon>skip_next</mat-icon>
+                </button>
+            </div>
+        </ng-container>
 
     </mat-sidenav-content>
 </mat-sidenav-container>

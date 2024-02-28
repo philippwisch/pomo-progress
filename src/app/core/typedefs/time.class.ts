@@ -33,4 +33,8 @@ export class Time {
   toSeconds(): number {
     return this.hours * 3600 + this.minutes * 60 + this.seconds;
   }
+
+  toString(): string {
+    return `${this.hours.toString().padStart(2, '0')}:${this.minutes.toString().padStart(2, '0')}:${this.seconds.toString().padStart(2, '0')}`
+  }
 }
