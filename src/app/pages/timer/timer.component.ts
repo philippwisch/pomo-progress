@@ -13,6 +13,7 @@ import { Task } from '../../core/typedefs/task.class';
 import { Subscription } from 'rxjs';
 import { Time } from '../../core/typedefs/time.class';
 import { PadWithZeroesPipe } from "../../core/pipes/pad-with-zeroes.pipe";
+import { MathAbsPipe } from "../../core/pipes/math-abs.pipe";
 
 
 @Component({
@@ -20,7 +21,7 @@ import { PadWithZeroesPipe } from "../../core/pipes/pad-with-zeroes.pipe";
   standalone: true,
   templateUrl: './timer.component.html',
   styleUrl: './timer.component.scss',
-  imports: [CommonModule, FormsModule, MatCheckboxModule, MatButtonModule, MatSelectModule, MatSidenavModule, MatIconModule, PadWithZeroesPipe]
+  imports: [CommonModule, FormsModule, MatCheckboxModule, MatButtonModule, MatSelectModule, MatSidenavModule, MatIconModule, PadWithZeroesPipe, MathAbsPipe]
 })
 export class TimerComponent {
   routines: Routine[];
@@ -28,6 +29,7 @@ export class TimerComponent {
   activeTask: Task | null = null;
   isPaused: boolean = true;
   timeRemaining: Time = new Time(0, 0, 0);
+  timeRemainingSign: string = "abc";
 
   private activeRoutineSubscription: Subscription | undefined;
   private activetaskSubscription: Subscription | undefined;
@@ -38,8 +40,10 @@ export class TimerComponent {
     this.activeRoutineSubscription = this.taskTrackingService.getActiveRoutine().subscribe(routine => this.activeRoutine = routine);
     this.activetaskSubscription = this.taskTrackingService.getActiveTask().subscribe(task => this.activeTask = task);
     this.pauseStatusSubscription = this.taskTrackingService.getPauseStatus().subscribe(status => this.isPaused = status);
+
     this.remainingTimeSubscription = this.taskTrackingService.getRemainingTime().subscribe(time => {
       this.timeRemaining = time;
+      this.timeRemainingSign = this.timeRemaining.toSeconds() < 0 ? "-" : "";
     })
 
     this.routines = this.routineService.routines;
@@ -60,20 +64,17 @@ export class TimerComponent {
     }
   }
 
+  onRoutineChange() {
+    if (this.activeRoutine) {
+      this.taskTrackingService.setActiveRoutine(this.activeRoutine);
+    }
+  }
+
   toggleTaskPaused() {
     this.taskTrackingService.togglePauseStatus();
   }
 
   skipTask() { }
 
-  onRoutineChange() {
-    this.taskTrackingService.setPauseStatus(true);
-    if (this.activeRoutine) {
-      this.taskTrackingService.setActiveRoutine(this.activeRoutine);
-      if (this.activeRoutine.tasks.length > 0) {
-        this.taskTrackingService.setActiveTask(this.activeRoutine.tasks[0]);
-        this.taskTrackingService.setRemainingTime(this.activeRoutine.tasks[0].time);
-      }
-    }
-  }
+
 }

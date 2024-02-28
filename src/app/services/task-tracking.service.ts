@@ -9,6 +9,9 @@ import { Routine } from '../core/typedefs/routine.class';
 })
 export class TaskTrackingService {
   private timer: any;
+
+  private activeRoutine: Routine = {} as Routine;
+  private activeTask: Task | null = null;
   private isPaused: boolean = true;
   private remainingTime = new Time(0, 0, 0);
 
@@ -43,6 +46,12 @@ export class TaskTrackingService {
   }
   setActiveRoutine(routine: Routine) {
     this.activeRoutineSubject.next(routine);
+    this.activeRoutine = routine;
+    this.setPauseStatus(true);
+
+    if (routine.tasks.length > 0) {
+      this.setActiveTask(routine.tasks[0]);
+    }
   }
 
   getActiveTask(): Observable<Task> {
@@ -51,6 +60,8 @@ export class TaskTrackingService {
 
   setActiveTask(task: Task) {
     this.activeTaskSubject.next(task);
+    this.activeTask = task;
+    this.setRemainingTime(task.time);
   }
 
   getRemainingTime(): Observable<Time> {
@@ -66,6 +77,17 @@ export class TaskTrackingService {
     this.timer = setInterval(() => {
       this.remainingTime = new Time(this.remainingTime.toSeconds() - 1);
       this.remainingTimeSubject.next(this.remainingTime);
+
+      if (this.remainingTime.toSeconds() <= 0 && this.activeTask) {
+        const nextTaskIndex = this.activeRoutine.tasks.indexOf(this.activeTask) + 1;
+        if (nextTaskIndex < this.activeRoutine.tasks.length) {
+          const nextTask = this.activeRoutine.tasks[nextTaskIndex];
+          this.setActiveTask(nextTask);
+        } else {
+          this.setPauseStatus(true);
+          this.activeTask = null;
+        }
+      }
     }, 1000); // Decrease time every second
   }
 

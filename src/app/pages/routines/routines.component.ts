@@ -67,7 +67,7 @@ export class RoutinesComponent {
   }
 
   addRoutine() {
-    let newRoutine = new Routine("New Routine", [new Task("", new Time("", "", ""), "#ff0000")]);
+    let newRoutine = new Routine("New Routine", [new Task("", new Time(0, 5, 0), "#ff0000")]);
     this.routineService.addRoutine(newRoutine);
     this.selectedRoutine = newRoutine;
     // todo autofocus for editing the name

@@ -23,9 +23,8 @@
 
         <div>{{activeTask?.name}}</div>
 
-        <div>
-            {{timeRemaining.hours | padWithZeroes:2}}:{{timeRemaining.minutes |
-            padWithZeroes:2}}:{{timeRemaining.seconds | padWithZeroes:2}}
+        <div>{{timeRemainingSign +(timeRemaining.hours | mathAbs | padWithZeroes:2)}}:{{timeRemaining.minutes | mathAbs
+            | padWithZeroes:2}}:{{timeRemaining.seconds | mathAbs | padWithZeroes:2}}
         </div>
 
         <div class="flex-center">

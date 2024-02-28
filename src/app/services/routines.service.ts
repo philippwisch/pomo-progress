@@ -13,14 +13,7 @@ export class RoutinesService {
 
   constructor() {
     // placeholders for now
-
-    let longRoutine = new Routine("Degenerate Lifestyle", []);
-    for (let i = 0; i < 100; i++) {
-      longRoutine.tasks.push(new Task("Watch Anime", new Time(20, 0, 0), "#00ffff"));
-      longRoutine.tasks.push(new Task("Sleep", new Time(4, 0, 0), "#ff00ff"));
-    }
-    this.routines.push(longRoutine);
-    this.routines.push(new Routine("Pomodoro", [new Task("Work", new Time(0, 25, 0), "#ff0000"), new Task("Rest", new Time(0, 5, 0), "#00ff00")]));
+    this.routines.push(new Routine("Test", [new Task("Task 1", new Time(0, 0, 2), "#ff0000"), new Task("Task 2", new Time(0, 0, 3), "#00ff00")]));
   }
 
   addRoutine(routine: Routine): number {
