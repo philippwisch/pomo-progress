@@ -5,6 +5,7 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
+import { DarkModeService } from '../../services/dark-mode.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -23,9 +24,10 @@ export class ToolbarComponent {
   ];
 
   isSmallScreen: boolean = false;
-  showMenu: boolean = false;
+  isShowMenu: boolean = false;
+  isDarkMode: boolean = false;
 
-  constructor(private breakpointObserver: BreakpointObserver) {
+  constructor(private breakpointObserver: BreakpointObserver, private darkModeService: DarkModeService) {
     // Detect changes in screen size
     this.breakpointObserver.observe(("(max-width: 500px)")).subscribe(result => {
       this.isSmallScreen = result.matches;
@@ -33,6 +35,10 @@ export class ToolbarComponent {
   }
 
   toggleMenu() {
-    this.showMenu = !this.showMenu;
+    this.isShowMenu = !this.isShowMenu;
+  }
+
+  toggleDarkMode() {
+    this.darkModeService.toggleDarkMode();
   }
 }
