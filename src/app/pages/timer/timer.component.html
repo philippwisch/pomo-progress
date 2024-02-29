@@ -10,13 +10,13 @@
         <mat-checkbox [(ngModel)]="taskTrackingService.isAutoStartNextTask">autostart tasks</mat-checkbox>
         <mat-checkbox [(ngModel)]="taskTrackingService.isAutoRepeatRoutine">autorestart routine</mat-checkbox>
         <div class="flex-column">
-            <button mat-flat-button *ngFor="let task of activeRoutine?.tasks" class="multiline-button"
+            <button mat-flat-button *ngFor="let task of activeRoutine?.tasks" class="multiline-button" [style.backgroundColor]="task.color"
                 [class.highlight]="task === activeTask" (click)="onTaskSelect(task)">{{task.name}}<br>{{task.time |
                 formatTime}}</button>
         </div>
     </mat-sidenav>
     3
-    <mat-sidenav-content id="sidenav-content" [style.backgroundColor]="activeTask?.color">
+    <mat-sidenav-content id="sidenav-content" [style.backgroundColor]="adjustedBackgroundColor$ | async">
         <button mat-mini-fab id="sidenav-toggle-button" (click)="sidenav.toggle()">
             <mat-icon *ngIf="sidenav.opened">navigate_before</mat-icon>
             <mat-icon *ngIf="!sidenav.opened">navigate_next</mat-icon>
