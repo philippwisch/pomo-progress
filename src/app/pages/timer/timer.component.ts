@@ -13,7 +13,6 @@ import { Task } from '../../core/typedefs/task.class';
 import { Subscription } from 'rxjs';
 import { Time } from '../../core/typedefs/time.class';
 import { FormatTimePipe } from "../../core/pipes/format-time.pipe";
-import { trigger, style, animate, transition } from '@angular/animations';
 
 
 @Component({
@@ -21,14 +20,6 @@ import { trigger, style, animate, transition } from '@angular/animations';
   standalone: true,
   templateUrl: './timer.component.html',
   styleUrl: './timer.component.scss',
-  animations: [
-    trigger('colorChange', [
-      transition(':enter', [
-        style({ backgroundColor: 'transparent' }),
-        animate('500ms', style({ backgroundColor: '*' })),
-      ]),
-    ]),
-  ],
   imports: [CommonModule, FormsModule, MatCheckboxModule, MatButtonModule, MatSelectModule, MatSidenavModule, MatIconModule, FormatTimePipe]
 })
 export class TimerComponent {
