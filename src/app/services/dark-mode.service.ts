@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
+import * as convert from 'color-convert';
+
 export interface ColorRegistration {
   originalColor: string;
   adjustedColor$: BehaviorSubject<string>;
@@ -49,7 +51,9 @@ export class DarkModeService {
   }
 
   adjustColor(colorHex: string, isDarkMode: boolean): string {
-    // todo actual adjustment
-    return "#f00ff0";
+    const hsl = convert.hex.hsl(colorHex);
+    const l = isDarkMode ? 20 : 80;
+    const s = 50;
+    return '#' + convert.hsl.hex([hsl[0], s, l]);
   }
 }
