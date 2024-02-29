@@ -52,7 +52,7 @@ export class DarkModeService {
 
   adjustColor(colorHex: string, isDarkMode: boolean): string {
     const hsl = convert.hex.hsl(colorHex);
-    const l = isDarkMode ? 20 : 80;
+    const l = isDarkMode ? 20 : 85;
     const s = 50;
     return '#' + convert.hsl.hex([hsl[0], s, l]);
   }
