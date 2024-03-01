@@ -34,11 +34,15 @@ export class ToolbarComponent {
     });
   }
 
+  toggleDarkMode() {
+    this.darkModeService.toggleDarkMode();
+  }
+
   toggleMenu() {
     this.isShowMenu = !this.isShowMenu;
   }
 
-  toggleDarkMode() {
-    this.darkModeService.toggleDarkMode();
+  openSidePanel() {
+    
   }
 }

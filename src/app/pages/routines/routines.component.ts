@@ -9,13 +9,14 @@ import { Task } from '../../core/typedefs/task.class';
 import { TaskComponent } from "../../components/task/task.component";
 import { Time } from '../../core/typedefs/time.class';
 import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-routines',
   standalone: true,
   templateUrl: './routines.component.html',
   styleUrl: './routines.component.scss',
-  imports: [CommonModule, MatListModule, MatButtonModule, MatIconModule, TaskComponent, DragDropModule]
+  imports: [CommonModule, MatListModule, MatButtonModule, MatIconModule, TaskComponent, DragDropModule, MatSidenavModule]
 })
 export class RoutinesComponent {
   // Using a querylist to get a reference to every routine name input

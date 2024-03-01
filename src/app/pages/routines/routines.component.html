@@ -1,18 +1,19 @@
-<div class="page-container flex-container responsive-layout">
+<mat-sidenav-container id="sidenav-container">
 
-    <!-- routines-->
-    <div class="left-menu overflow-scroll">
+
+    <mat-sidenav id="sidenav" mode="side" opened>
+
         <mat-list>
 
             <ng-container *ngFor="let routine of routines; let index=index">
                 <mat-list-item>
-                    <div class="flex-center list-item-routine-container" [class.highlight]="routine===selectedRoutine">
+                    <div class="flex-center" [class.highlight]="routine===selectedRoutine">
 
                         <ng-container *ngIf="routine!==selectedForEditRoutine">
                             <button mat-button class="flex-item-1-1 multiline-button sharp-edges mat-list-mat-button"
                                 [class.highlight]="routine===selectedRoutine" (click)="selectRoutine(routine)">
                                 {{routine.name}}</button>
-                            <button mat-mini-fab class="margin-1"
+                            <button mat-icon-button class="margin-1"
                                 (click)="editRoutine(routine)"><mat-icon>edit</mat-icon>
                             </button>
                         </ng-container>
@@ -21,12 +22,12 @@
                             <input #name type="text" class="flex-item-1-1" [value]="routine.name"
                                 (keydown.enter)="name.blur()" (keydown.escape)="name.blur()"
                                 (blur)="saveRoutine(routine, name.value)">
-                            <button mat-mini-fab class="margin-1"
+                            <button mat-icon-button class="margin-1"
                                 (click)="saveRoutine(routine, name.value)"><mat-icon>save</mat-icon>
                             </button>
                         </ng-container>
 
-                        <button mat-mini-fab class="margin-1"
+                        <button mat-icon-button class="margin-1"
                             (click)="deleteRoutine(routine)"><mat-icon>close</mat-icon>
                         </button>
 
@@ -38,23 +39,23 @@
                 <div class="add-button-container">
                     <button mat-mini-fab (click)="addRoutine()"><mat-icon>add</mat-icon></button>
                 </div>
+
             </mat-list-item>
 
         </mat-list>
-    </div>
 
-    <!-- small screen horizontal divider -->
-    <div class="divider"></div>
+    </mat-sidenav>
 
-    <!-- tasks -->
-    <div class="flex-item-1-1 right-menu overflow-scroll">
-        <mat-list cdkDropList (cdkDropListDropped)="onTaskListDrop($event)">
+
+    <mat-sidenav-content>
+
+        <mat-list cdkDropList class="task-list" (cdkDropListDropped)="onTaskListDrop($event)">
 
             <ng-container *ngIf="!(selectedRoutine===null)">
                 <ng-container *ngFor="let task of selectedRoutine.tasks; let index=index;">
 
                     <mat-list-item cdkDrag>
-                        <div class="list-item-task-container">
+                        <div class="task-list-item flex-center">
                             <div class=" margin-1">
                                 <div class="flex-center drag-handle mat-elevation-z4" cdkDragHandle>
                                     <mat-icon>drag_handle</mat-icon>
@@ -63,10 +64,10 @@
                             <app-task class="flex-item-1-1 flex-center" [routine]="selectedRoutine"
                                 [task]="task"></app-task>
                             <div>
-                                <button mat-mini-fab class=" margin-1"
+                                <button mat-icon-button class=" margin-1"
                                     (click)="duplicateTask(selectedRoutine, task)"><mat-icon>content_copy</mat-icon>
                                 </button>
-                                <button mat-mini-fab class=" margin-1"
+                                <button mat-icon-button class=" margin-1"
                                     (click)="deleteTask(selectedRoutine, task)"><mat-icon>close</mat-icon>
                                 </button>
                             </div>
@@ -86,5 +87,8 @@
             </mat-list-item>
 
         </mat-list>
-    </div>
-</div>
+
+    </mat-sidenav-content>
+
+
+</mat-sidenav-container>

@@ -1,6 +1,14 @@
-<mat-toolbar color="primary" class="mat-elevation-z4">
-    <div class="toolbar-content">
-        <!-- for wide screens -->
+<mat-toolbar color="primary" class="main-container flex-item-1-1 mat-elevation-z4">
+
+    <!-- left -->
+    <div class="toolbar-item">
+        <!-- optional sidepanel button-->
+        <button mat-icon-button (click)="openSidePanel()">TODO: SIDENAV TOGGLE</button>
+    </div>
+
+    <!-- center-->
+    <div class="flex-center toolbar-item">
+        <!-- links side-by-side for wide screens -->
         <ng-container *ngIf="!isSmallScreen">
             <a *ngFor="let link of links" routerLink="{{link.url}}" routerLinkActive="highlight">{{link.label}}</a>
         </ng-container>
@@ -12,10 +20,14 @@
             </button>
         </ng-container>
     </div>
-    <button mat-icon-button (click)="toggleDarkMode()"><mat-icon>dark_mode</mat-icon></button>
+    <!-- right-->
+    <div class="flex-end toolbar-item">
+        <button mat-icon-button (click)="toggleDarkMode()"><mat-icon>dark_mode</mat-icon></button>
+    </div>
+
 </mat-toolbar>
 
-<!-- Floating panel for menu -->
+<!-- Floating panel for navigation menu on small screens -->
 <ng-container *ngIf="isShowMenu && isSmallScreen">
     <div class="menu-panel mat-elevation-z4">
         <a *ngFor="let link of links" routerLink="{{link.url}}" routerLinkActive="highlight"

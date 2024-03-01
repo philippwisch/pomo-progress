@@ -1,4 +1,6 @@
 <mat-sidenav-container id="sidenav-container">
+
+
     <mat-sidenav #sidenav mode="side" id="sidenav" opened>
 
         <mat-form-field id="routine-select">
@@ -15,14 +17,16 @@
                 (click)="onTaskSelect(task)">{{task.name}}<br>{{task.time |
                 formatTime}}</button>
         </div>
+
     </mat-sidenav>
-    3
+
+
     <mat-sidenav-content id="sidenav-content" [style.backgroundColor]="adjustedBackgroundColor$ | async">
+
         <button mat-mini-fab id="sidenav-toggle-button" (click)="sidenav.toggle()">
             <mat-icon *ngIf="sidenav.opened">navigate_before</mat-icon>
             <mat-icon *ngIf="!sidenav.opened">navigate_next</mat-icon>
         </button>
-
         <ng-container *ngIf="activeRoutine && activeRoutine.tasks.length > 0">
             <!-- task timer -->
             <div>{{activeTask?.name}}</div>
@@ -41,4 +45,6 @@
         </ng-container>
 
     </mat-sidenav-content>
+
+    
 </mat-sidenav-container>

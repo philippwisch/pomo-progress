@@ -7,10 +7,10 @@
     }
 
     .add-button-container {
-        background-color: mat.get-theme-color($theme, background, background);
+        //background-color: mat.get-theme-color($theme, background, background);
     }
 
     .cdk-drag-preview {
-        background-color: mat.get-theme-color($theme, primary, A200) !important;
-    }
+        background-color: mat.get-theme-color($theme, primary, default) !important;
+      }
 }
