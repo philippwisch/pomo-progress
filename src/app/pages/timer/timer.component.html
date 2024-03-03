@@ -29,13 +29,13 @@
             <div>{{activeTask?.name}}</div>
             <div>{{timeRemaining | formatTime}}</div>
             <div class="flex-center">
-                <button mat-icon-button (click)="skipTask()">
+                <button mat-icon-button (click)="prevTask()">
                     <mat-icon class="big-icon">skip_previous</mat-icon>
                 </button>
                 <button mat-icon-button (click)="toggleTaskPaused()">
                     <mat-icon class="big-icon">{{isPaused ? 'play_arrow' : 'pause'}}</mat-icon>
                 </button>
-                <button mat-icon-button (click)="skipTask()">
+                <button mat-icon-button (click)="nextTask()">
                     <mat-icon class="big-icon">skip_next</mat-icon>
                 </button>
             </div>

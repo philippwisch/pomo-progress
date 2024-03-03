@@ -93,7 +93,12 @@ export class TimerComponent {
     this.taskTrackingService.togglePauseStatus();
   }
 
-  skipTask() { }
+  nextTask() {
+    this.taskTrackingService.nextTask();
+  }
+
+  prevTask() { }
+
 
   onActiveRoutineChange(event: MatSelectChange) {
     this.taskTrackingService.setActiveRoutine(event.value);

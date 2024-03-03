@@ -36,7 +36,7 @@ export class TaskTrackingService {
     this.isPausedSubject.next(status);
     if (status) {
       this.stopTimer();
-    } else if(!this.timer) {
+    } else if (!this.timer) {
       this.startTimer();
     }
   }
@@ -63,9 +63,18 @@ export class TaskTrackingService {
   }
 
   setActiveTask(task: Task) {
+    // if any time has been spent on the task, add a history entry for that task
+    // if the task before that was the same as this task, combine them both together?
     this.activeTaskSubject.next(task);
     this.activeTask = task;
     this.setRemainingTime(task.time);
+  }
+
+  nextTask() {
+    const currentTaskIndex = this.activeRoutine!.tasks.indexOf(this.activeTask!);
+    const nextTaskIndex = (currentTaskIndex + 1) % this.activeRoutine!.tasks.length;
+    this.setActiveTask(this.activeRoutine!.tasks[nextTaskIndex]);
+    this.setPauseStatus(!this.isAutoStartNextTask);
   }
 
   getRemainingTime(): Observable<Time> {
@@ -99,23 +108,19 @@ export class TaskTrackingService {
     // if the task is ending
     if (this.remainingTime.toSeconds() <= 0 && this.activeTask) {
       const nextTaskIndex = this.activeRoutine!.tasks.indexOf(this.activeTask) + 1;
-      // if there are more tasks
+
       if (nextTaskIndex < this.activeRoutine!.tasks.length) {
-        this.moveToTask(this.activeRoutine!.tasks[nextTaskIndex], this.isAutoStartNextTask);
-        // if this was the last task
+        // if there are more tasks
+        this.nextTask();
       } else {
-        this.handleRoutineCompletion(this.isAutoRepeatRoutine)
+        // if this was the last task
+        this.handleRoutineCompletion();
       }
     }
   }
 
-  private moveToTask(nextTask: Task, isAutoStart: boolean) {
-    this.setActiveTask(nextTask);
-    this.setPauseStatus(!isAutoStart);
-  }
-
-  private handleRoutineCompletion(isAutoStart: boolean) {
+  private handleRoutineCompletion() {
     this.setActiveRoutine(this.activeRoutine!); // this will reset the routine to the beginning
-    this.setPauseStatus(!isAutoStart);
+    this.setPauseStatus(!this.isAutoRepeatRoutine);
   }
 }
