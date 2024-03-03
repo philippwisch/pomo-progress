@@ -109,6 +109,7 @@ export class TimerComponent {
     // because it's unnecessary
     if (task !== this.activeTask) {
       this.taskTrackingService.setActiveTask(task);
+      this.taskTrackingService.setPauseStatus(true);
     }
   }
 }
