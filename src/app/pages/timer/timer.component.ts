@@ -30,11 +30,12 @@ export class TimerComponent {
   activeTask: Task | null = null;
   isPaused: boolean = true;
   timeRemaining: Time = new Time(0, 0, 0);
-  timeRemainingSign: string = "abc";
 
   adjustedBackgroundColor$: Observable<string> | null = null;
+  adjustedTaskColors$!: Observable<string>[];
+
   private activeRoutineSubscription: Subscription | undefined;
-  private activetaskSubscription: Subscription | undefined;
+  private activeTaskSubscription: Subscription | undefined;
   private pauseStatusSubscription: Subscription | undefined;
   private remainingTimeSubscription: Subscription | undefined;
 
@@ -49,13 +50,19 @@ export class TimerComponent {
 
     this.activeRoutineSubscription = this.taskTrackingService.getActiveRoutine().subscribe(routine => {
       this.activeRoutine = routine
+
       if (!this.activeRoutine && this.routines.length > 0) {
         // if there is no selected routine, simply select the first by default
         this.taskTrackingService.setActiveRoutine(this.routines[0]);
       }
+
+      // adjusted colors for each task
+      if (this.activeRoutine) {
+        this.adjustedTaskColors$ = this.activeRoutine.tasks.map(task => this.darkModeService.registerColor(task.color));
+      }
     });
-    this.activetaskSubscription = this.taskTrackingService.getActiveTask().subscribe(task => {
-      console.log("changing task!");
+
+    this.activeTaskSubscription = this.taskTrackingService.getActiveTask().subscribe(task => {
       this.activeTask = task;
       this.adjustedBackgroundColor$ = this.darkModeService.registerColor(task.color);
     });
@@ -64,13 +71,12 @@ export class TimerComponent {
 
     this.remainingTimeSubscription = this.taskTrackingService.getRemainingTime().subscribe(time => {
       this.timeRemaining = time;
-      this.timeRemainingSign = this.timeRemaining.toSeconds() < 0 ? "-" : "";
     })
   }
 
   ngOnDestroy(): void {
-    if (this.activetaskSubscription) {
-      this.activetaskSubscription.unsubscribe();
+    if (this.activeTaskSubscription) {
+      this.activeTaskSubscription.unsubscribe();
     }
     if (this.pauseStatusSubscription) {
       this.pauseStatusSubscription.unsubscribe();
