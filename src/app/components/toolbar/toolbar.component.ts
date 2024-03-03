@@ -1,16 +1,19 @@
 import { Component } from '@angular/core';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { DarkModeService } from '../../services/dark-mode.service';
+import { AppStateService } from '../../services/app-state.service';
+import { filter } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-toolbar',
   standalone: true,
-  imports: [CommonModule, MatToolbar, MatButtonModule, MatIconModule, RouterLink, RouterLinkActive],
+  imports: [CommonModule, MatToolbar, MatButtonModule, MatIconModule, RouterModule],
   templateUrl: './toolbar.component.html',
   styleUrl: './toolbar.component.scss'
 })
@@ -26,11 +29,28 @@ export class ToolbarComponent {
   isSmallScreen: boolean = false;
   isShowMenu: boolean = false;
   isDarkMode: boolean = false;
+  isShowSidebarToggle: boolean = false; // might be unnecessary just check if appstate has a value for that route
+  sidebarOpenKey: string = '';
 
-  constructor(private breakpointObserver: BreakpointObserver, private darkModeService: DarkModeService) {
+  constructor(
+    private router: Router,
+    private breakpointObserver: BreakpointObserver,
+    private darkModeService: DarkModeService,
+    public appStateService: AppStateService) {
     // Detect changes in screen size
     this.breakpointObserver.observe(("(max-width: 500px)")).subscribe(result => {
       this.isSmallScreen = result.matches;
+    });
+  }
+
+  ngOnInit(): void {
+    // For sidebar toggle
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: any) => {
+      // Show sidebar toggle button only for routes that use a sidebar
+      this.isShowSidebarToggle = ['/routines', '/timer'].includes(event.url);
+      this.sidebarOpenKey = `isSidebarOpen_${event.url}`;
     });
   }
 
@@ -42,7 +62,8 @@ export class ToolbarComponent {
     this.isShowMenu = !this.isShowMenu;
   }
 
-  openSidePanel() {
-    
+  toggleSidebar() {
+    this.appStateService.values[this.sidebarOpenKey] = !this.appStateService.values[this.sidebarOpenKey];
+    this.appStateService.saveState();
   }
 }

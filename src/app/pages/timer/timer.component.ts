@@ -14,6 +14,7 @@ import { Observable, Subscription } from 'rxjs';
 import { Time } from '../../core/typedefs/time.class';
 import { FormatTimePipe } from "../../core/pipes/format-time.pipe";
 import { DarkModeService } from '../../services/dark-mode.service';
+import { AppStateService } from '../../services/app-state.service';
 
 
 @Component({
@@ -38,7 +39,12 @@ export class TimerComponent {
   private remainingTimeSubscription: Subscription | undefined;
 
 
-  constructor(private routineService: RoutinesService, private darkModeService: DarkModeService, public taskTrackingService: taskTrackingService) {
+  constructor(
+    public appStateService: AppStateService,
+    public taskTrackingService: taskTrackingService,
+    private routineService: RoutinesService,
+    private darkModeService: DarkModeService,
+  ) {
     this.routines = this.routineService.routines;
 
     this.activeRoutineSubscription = this.taskTrackingService.getActiveRoutine().subscribe(routine => {

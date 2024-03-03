@@ -3,7 +3,10 @@
     <!-- left -->
     <div class="toolbar-item">
         <!-- optional sidepanel button-->
-        <button mat-icon-button (click)="openSidePanel()">TODO: SIDENAV TOGGLE</button>
+        <button *ngIf="isShowSidebarToggle" mat-icon-button (click)="toggleSidebar()">
+            <mat-icon *ngIf="appStateService.values[sidebarOpenKey]">chevron_left</mat-icon>
+            <mat-icon *ngIf="!appStateService.values[sidebarOpenKey]">chevron_right</mat-icon>
+        </button>
     </div>
 
     <!-- center-->

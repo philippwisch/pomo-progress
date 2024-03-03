@@ -10,6 +10,7 @@ import { TaskComponent } from "../../components/task/task.component";
 import { Time } from '../../core/typedefs/time.class';
 import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import { AppStateService } from '../../services/app-state.service';
 
 @Component({
   selector: 'app-routines',
@@ -39,7 +40,10 @@ export class RoutinesComponent {
   selectedRoutine: Routine | null = null;
   selectedForEditRoutine: Routine | null = null;
 
-  constructor(private routineService: RoutinesService) {
+  constructor(
+    private routineService: RoutinesService,
+    public appStateService: AppStateService,
+    ) {
     this.routines = this.routineService.routines;
     // todo get last selected routine from appState Service
     // or else just select the first routine
