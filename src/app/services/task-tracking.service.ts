@@ -78,6 +78,13 @@ export class TaskTrackingService {
     this.moveToTask(-1);
   }
 
+  restartActiveTask() {
+    if (this.activeTask) {
+      this.setActiveTask(this.activeTask);
+      this.setPauseStatus(!this.isAutoStartNextTask);
+    }
+  }
+
   private moveToTask(offset: number) {
     if (this.activeRoutine) {
       const currentTaskIndex = this.activeRoutine.tasks.indexOf(this.activeTask!);

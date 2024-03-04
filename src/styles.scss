@@ -47,20 +47,6 @@ input:focus {
 /// GLOBAL CLASSES WITH STYLES USED THROUGHOUT THE ENTIRE APP
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// Possible Layout for page content:
-// - Takes up all available vertical space of the parent container
-// - child elements using overflow scroll or overflow hidden will not grow outside the parent
-// - Horizontally centered with a max width of 1200px
-.page-container {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    max-width: 1200px;
-    width: 100%;
-    left: 50%;
-    transform: translate(-50%);
-}
-
 .highlight {
     //background-color: mat.get-theme-color($theme, primary, 800) !important;
     //color: mat.get-theme-color($theme, primary, 800-contrast) !important;

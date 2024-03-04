@@ -104,7 +104,7 @@ export class TimerComponent {
         this.taskTrackingService.prevTask();
       } else {
         // restart task
-        // this.taskTrackingService.restartActiveTask();
+        this.taskTrackingService.restartActiveTask();
       }
     }
   }
