@@ -97,7 +97,17 @@ export class TimerComponent {
     this.taskTrackingService.nextTask();
   }
 
-  prevTask() { }
+  prevTask() {
+    if (this.activeTask) {
+      const timeSinceStart = this.activeTask.time.toSeconds() - this.timeRemaining.toSeconds();
+      if (timeSinceStart < 3) {
+        this.taskTrackingService.prevTask();
+      } else {
+        // restart task
+        // this.taskTrackingService.restartActiveTask();
+      }
+    }
+  }
 
 
   onActiveRoutineChange(event: MatSelectChange) {

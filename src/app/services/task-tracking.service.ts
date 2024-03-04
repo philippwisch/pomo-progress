@@ -71,10 +71,25 @@ export class TaskTrackingService {
   }
 
   nextTask() {
-    const currentTaskIndex = this.activeRoutine!.tasks.indexOf(this.activeTask!);
-    const nextTaskIndex = (currentTaskIndex + 1) % this.activeRoutine!.tasks.length;
-    this.setActiveTask(this.activeRoutine!.tasks[nextTaskIndex]);
-    this.setPauseStatus(!this.isAutoStartNextTask);
+    this.moveToTask(+1);
+  }
+
+  prevTask() {
+    this.moveToTask(-1);
+  }
+
+  private moveToTask(offset: number) {
+    if (this.activeRoutine) {
+      const currentTaskIndex = this.activeRoutine.tasks.indexOf(this.activeTask!);
+      // Calculate the next task index considering the offset
+      let nextTaskIndex = (currentTaskIndex + offset) % this.activeRoutine.tasks.length;
+      // Adjust negative indices to wrap around to the end of the task list
+      if (nextTaskIndex < 0) {
+        nextTaskIndex += this.activeRoutine.tasks.length;
+      }
+      this.setActiveTask(this.activeRoutine!.tasks[nextTaskIndex]);
+      this.setPauseStatus(!this.isAutoStartNextTask);
+    }
   }
 
   getRemainingTime(): Observable<Time> {

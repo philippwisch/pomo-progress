@@ -15,7 +15,7 @@
 
             <button mat-flat-button *ngFor="let task of activeRoutine?.tasks; let index = index"
                 class="multiline-button" [style.backgroundColor]="adjustedTaskColors$[index] | async"
-                [class.highlight]="task === activeTask" (click)="onTaskSelect(task)">{{task.name}}<br>{{task.time |
+                [class.highlight]="task === activeTask" (click)="onTaskSelect(task)">{{task.name || 'Unnamed Task'}}<br>{{task.time |
                 formatTime}}
             </button>
         </div>
@@ -26,7 +26,7 @@
 
         <ng-container *ngIf="activeRoutine && activeRoutine.tasks.length > 0">
             <!-- task timer -->
-            <div>{{activeTask?.name}}</div>
+            <div>{{activeTask?.name || 'Unnamed Task'}}</div>
             <div>{{timeRemaining | formatTime}}</div>
             <div class="flex-center">
                 <button mat-icon-button (click)="prevTask()">
