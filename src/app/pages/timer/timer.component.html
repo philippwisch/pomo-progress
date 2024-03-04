@@ -1,7 +1,7 @@
 <mat-sidenav-container id="sidenav-container">
 
 
-    <mat-sidenav #sidenav mode="side" id="sidenav" [opened]="appStateService.values['isSidebarOpen_/timer']">
+    <mat-sidenav #sidenav mode="side" id="sidenav" [opened]="appStateService.values['/timer.isSidebarOpen']">
 
         <mat-form-field id="routine-select">
             <mat-label>Routine</mat-label>
@@ -15,7 +15,8 @@
 
             <button mat-flat-button *ngFor="let task of activeRoutine?.tasks; let index = index"
                 class="multiline-button" [style.backgroundColor]="adjustedTaskColors$[index] | async"
-                [class.highlight]="task === activeTask" (click)="onTaskSelect(task)">{{task.name || 'Unnamed Task'}}<br>{{task.time |
+                [class.highlight]="task === activeTask" (click)="onTaskSelect(task)">{{task.name || 'Unnamed
+                Task'}}<br>{{task.time |
                 formatTime}}
             </button>
         </div>

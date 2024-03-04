@@ -9,8 +9,9 @@ import { Task } from '../../core/typedefs/task.class';
 import { TaskComponent } from "../../components/task/task.component";
 import { Time } from '../../core/typedefs/time.class';
 import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
-import {MatSidenavModule} from '@angular/material/sidenav';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { AppStateService } from '../../services/app-state.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-routines',
@@ -41,17 +42,23 @@ export class RoutinesComponent {
   selectedForEditRoutine: Routine | null = null;
 
   constructor(
+    private route: ActivatedRoute,
     private routineService: RoutinesService,
     public appStateService: AppStateService,
-    ) {
+  ) {
     this.routines = this.routineService.routines;
-    // todo get last selected routine from appState Service
+    // get last selected routine from the last session from appState Service
+    this.selectedRoutine = this.routines[this.appStateService.values["/" + this.route.snapshot.url + ".selectedRoutine"]] || null;
     // or else just select the first routine
-    this.selectFirstRoutine();
+    if(this.selectedRoutine === null) {
+      this.selectFirstRoutine();
+    }
   }
 
   selectRoutine(routine: Routine) {
     this.selectedRoutine = routine;
+    this.appStateService.values["/" + this.route.snapshot.url + ".selectedRoutine"] = this.routines.indexOf(routine);
+    this.appStateService.saveState();
   }
 
   selectFirstRoutine() {
@@ -98,7 +105,6 @@ export class RoutinesComponent {
     this.routineService.addTask(routine, newTask);
   }
 
-  // todo change this to work with task reference and BEFORE or AFTER as a parameter to avoid using indexes
   duplicateTask(routine: Routine, task: Task) {
     const newTask = { ...task };
     const duplicateIndex = this.routineService.addTask(routine, newTask);

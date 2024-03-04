@@ -13,10 +13,6 @@ export class AppStateService {
     this.loadState();
   }
 
-  ngOnDestroy() {
-    this.saveState();
-  }
-
   public saveState() {
     localStorage.setItem('appState', JSON.stringify(this.values));
   }

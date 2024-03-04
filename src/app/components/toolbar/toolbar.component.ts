@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
-import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { DarkModeService } from '../../services/dark-mode.service';
 import { AppStateService } from '../../services/app-state.service';
 import { filter } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-toolbar',
@@ -50,7 +49,7 @@ export class ToolbarComponent {
     ).subscribe((event: any) => {
       // Show sidebar toggle button only for routes that use a sidebar
       this.isShowSidebarToggle = ['/routines', '/timer'].includes(event.url);
-      this.sidebarOpenKey = `isSidebarOpen_${event.url}`;
+      this.sidebarOpenKey = `${event.url}.isSidebarOpen`;
     });
   }
 
