@@ -8,11 +8,13 @@ import { CommonModule } from '@angular/common';
 import { DarkModeService } from '../../services/dark-mode.service';
 import { AppStateService } from '../../services/app-state.service';
 import { filter } from 'rxjs/operators';
+import { MatRippleModule } from '@angular/material/core';
+
 
 @Component({
   selector: 'app-toolbar',
   standalone: true,
-  imports: [CommonModule, MatToolbar, MatButtonModule, MatIconModule, RouterModule],
+  imports: [CommonModule, MatToolbar, MatButtonModule, MatIconModule, RouterModule, MatRippleModule],
   templateUrl: './toolbar.component.html',
   styleUrl: './toolbar.component.scss'
 })

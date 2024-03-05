@@ -13,7 +13,7 @@
     <div class="flex-center toolbar-item">
         <!-- links side-by-side for wide screens -->
         <ng-container *ngIf="!isSmallScreen">
-            <a *ngFor="let link of links" routerLink="{{link.url}}" routerLinkActive="highlight">{{link.label}}</a>
+            <a mat-button *ngFor="let link of links" routerLink="{{link.url}}" routerLinkActive="highlight">{{link.label}}</a>
         </ng-container>
 
         <!-- Menu button for narrow screens -->

@@ -28,3 +28,11 @@
 .big-icon {
     transform: scale(2);
 }
+
+.task-button {
+    border-bottom: solid 1px black;
+}
+
+.task-button:first-child {
+    border-top: solid 1px black;
+}

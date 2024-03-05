@@ -10,7 +10,7 @@
                     <div class="flex-center" [class.highlight]="routine===selectedRoutine">
 
                         <ng-container *ngIf="routine!==selectedForEditRoutine">
-                            <button mat-button class="flex-item-1-1 multiline-button sharp-edges mat-list-mat-button"
+                            <button mat-button class="flex-item-1-1 multiline-button mat-list-mat-button"
                                 [class.highlight]="routine===selectedRoutine" (click)="selectRoutine(routine)">
                                 {{routine.name}}</button>
                             <button mat-icon-button class="margin-1"

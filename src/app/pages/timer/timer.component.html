@@ -14,7 +14,7 @@
         <div class="flex-column">
 
             <button mat-flat-button *ngFor="let task of activeRoutine?.tasks; let index = index"
-                class="multiline-button" [style.backgroundColor]="adjustedTaskColors$[index] | async"
+                class="multiline-button sharp-edges task-button" [style.backgroundColor]="adjustedTaskColors$[index] | async"
                 [class.highlight]="task === activeTask" (click)="onTaskSelect(task)">{{task.name || 'Unnamed
                 Task'}}<br>{{task.time |
                 formatTime}}
